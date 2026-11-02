@@ -41,9 +41,10 @@ strong{font-weight:600}
 .summary{border-left:3px solid var(--gold);background:var(--card);padding:20px 24px;border-radius:0 3px 3px 0;max-width:60rem;font-size:16.5px}
 .summary>p:last-child{margin-bottom:0}
 
-.tabs{display:inline-flex;align-items:stretch;border:1px solid var(--navy);border-radius:3px;overflow:hidden;background:#fff;margin-bottom:26px}
-.tabs button{font:inherit;font-size:14px;font-weight:600;padding:9px 26px;border:0;background:#fff;color:var(--navy);cursor:pointer}
+.tabs{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap}
+.tabs button{font:inherit;font-size:14px;font-weight:600;padding:9px 26px;border:1px solid var(--navy);border-radius:99px;background:#fff;color:var(--navy);cursor:pointer;transition:background .15s,color .15s}
 .tabs button+button{border-left:1px solid var(--navy)}
+.tabs button:hover{background:var(--skylight)}
 .tabs button.on{background:var(--navy);color:#fff}
 
 .calc{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:28px;align-items:start}
