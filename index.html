@@ -28,8 +28,6 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);f
 .eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--sand)}
 h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,6vw,56px);line-height:1.04;margin:10px 0 16px;text-wrap:balance}
 .lead{font-size:18px;color:var(--skylight);max-width:52rem;margin:0 0 14px}
-.meta{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13.5px;color:var(--sky)}
-.meta b{color:var(--on-navy);font-weight:600}
 
 .wrap{max-width:72rem;margin:0 auto;padding-block:30px 80px;display:flex;flex-direction:column;gap:40px}
 section{display:flex;flex-direction:column;min-width:0}
@@ -43,13 +41,11 @@ strong{font-weight:600}
 .summary{border-left:3px solid var(--gold);background:var(--card);padding:20px 24px;border-radius:0 3px 3px 0;max-width:60rem;font-size:16.5px}
 .summary>p:last-child{margin-bottom:0}
 
-/* вкладки маркетплейсов */
 .tabs{display:inline-flex;align-items:stretch;border:1px solid var(--navy);border-radius:3px;overflow:hidden;background:#fff;margin-bottom:26px}
 .tabs button{font:inherit;font-size:14px;font-weight:600;padding:9px 26px;border:0;background:#fff;color:var(--navy);cursor:pointer}
 .tabs button+button{border-left:1px solid var(--navy)}
 .tabs button.on{background:var(--navy);color:#fff}
 
-/* ------- калькулятор ------- */
 .calc{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:28px;align-items:start}
 @media screen and (max-width:900px){.calc{grid-template-columns:1fr}}
 .panel{border:1px solid var(--border);border-radius:4px;background:var(--paper)}
@@ -64,7 +60,7 @@ strong{font-weight:600}
 .fin{width:110px;flex:none;text-align:right;font:inherit;font-size:14px;padding:5px 8px;border:1px solid var(--border);border-radius:3px;color:var(--ink);font-variant-numeric:tabular-nums}
 .fin:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
 .fin:disabled{background:var(--card);color:var(--muted)}
-select.fin{width:auto;text-align:left}
+select.fin{width:auto;text-align:left;max-width:220px}
 .chips{display:flex;gap:6px;margin:-2px 0 10px;flex-wrap:wrap}
 .chip-btn{font:inherit;font-size:12px;font-weight:600;padding:3px 10px;border:1px solid var(--border);border-radius:99px;background:var(--card);color:var(--blue);cursor:pointer}
 .chip-btn:hover{border-color:var(--blue)}
@@ -90,8 +86,6 @@ tr.sub td{color:var(--ink2);font-size:13px}
 .pos{color:var(--green);font-weight:600}.neg{color:var(--red);font-weight:600}
 
 .warn{border-left:3px solid var(--red);background:#FBF1EF;padding:12px 16px;border-radius:0 3px 3px 0;font-size:13.5px;color:var(--red);max-width:60rem}
-.callout{border-left:3px solid var(--gold);background:var(--card);padding:14px 18px;border-radius:0 3px 3px 0;max-width:60rem;margin:6px 0 14px;font-size:14px}
-.callout>:last-child{margin-bottom:0}
 
 footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-size:12.5px;color:var(--muted);max-width:60rem}
 @media print{.band .inner{padding-block:18px 20px}.wrap{gap:24px}}
@@ -162,7 +156,7 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
         </div>
         <div class="frow"><label>Комиссия Ozon, % от цены продавца<small>с 01.12.2026 формула меняется, деньгами — та же ставка</small></label><input class="fin" type="number" id="comm" value="27" min="0" max="100" step="0.1"></div>
         <div class="frow"><label>Эквайринг, % от оплаты покупателя<small>Ozon берёт его с оплаты покупателя; факт Piro: 1,68% ≈ 0,5% от цены продавца</small></label><input class="fin" type="number" id="acq" value="1.7" min="0" step="0.05"></div>
-        <div class="frow"><label>Прочие услуги, % от цены продавца<small>упаковка, страхование и т.п.</small></label><input class="fin" type="number" id="other" value="0.5" min="0" step="0.05"></div>
+        <div class="frow"><label>Прочие услуги, % от цены продавца<small>упаковка, страхование и т.п.</small></label><input class="fin" type="number" id="other" value="0.5" min="0" max="20" step="0.05"></div>
         <div class="frow"><label>Логистика до ПВЗ, ₽ на отправление<small>тариф: 95 + выдача 25</small></label><input class="fin" type="number" id="logf" value="120" min="0" step="1"></div>
         <div class="frow"><label>Обратная логистика и обработка невыкупа, ₽<small>факт Piro: 185–222 за отправление туда-обратно</small></label><input class="fin" type="number" id="logr" value="210" min="0" step="1"></div>
         <div class="frow"><label>Выкуп, %<small>доля доставленных из решённых заказов</small></label><input class="fin" type="number" id="buyout" value="40" min="1" max="100" step="0.5"></div>
@@ -219,8 +213,9 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
   <div class="summary">
     <p><strong>Как читать.</strong> На Wildberries все проценты (комиссия, эквайринг, реклама, налоги, маржа) —
     доли от <strong>цены после скидки продавца</strong>. Базовая цена до скидок обычно фиксирована, поэтому обратный расчёт
-    даёт не цену, а <strong>скидку</strong>: ставим скидку, при которой маржа не падает ниже целевой. Скидку округляем
-    вниз до целого процента — так маржа получается не ниже целевой.</p>
+    даёт не цену, а <strong>скидку</strong> (округляем вниз до целого процента — маржа не ниже целевой).
+    С осени 2026 WB сам распределяет товар по складам: для поставок на склад WB действует единый коэффициент
+    логистики 170%, а льготы за быструю отгрузку со своего склада (FBS) уменьшают саму комиссию.</p>
   </div>
 
   <h2 style="margin-top:26px">Wildberries</h2>
@@ -238,14 +233,21 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
           <button class="chip-btn on" id="wFbs" type="button">FBS — свой склад</button>
           <button class="chip-btn" id="wFbo" type="button">FBO (FBW) — склад WB</button>
         </div>
-        <div class="frow"><label>Комиссия WB, % от цены после скидки<small>брюки/джинсы/кофты: FBS 48%, FBO 43,5%</small></label><input class="fin wb" type="number" id="wComm" value="48" min="0" max="100" step="0.1"></div>
-        <div class="frow"><label>Эквайринг, %</label><input class="fin wb" type="number" id="wAcq" value="2" min="0" step="0.1"></div>
-        <div class="frow"><label>Объём товара, л<small>базовый тариф считается по диапазону: до 1 л — 23–32 ₽, свыше 1 л — 46 ₽ + 14 ₽/литр</small></label><input class="fin wb" type="number" id="wVol" value="1.2" min="0.05" step="0.05"></div>
-        <div class="frow"><label>Коэффициент склада, %<small>от склада привязки; пример: Электросталь 165%</small></label><input class="fin wb" type="number" id="wWh" value="165" min="10" max="400" step="5"></div>
-        <div class="frow"><label>КТР (индекс локализации, FBO)<small>диапазон 0,5–2; у FBS не участвует</small></label><input class="fin wb" type="number" id="wKtr" value="1.2" min="0.5" max="2" step="0.05"></div>
-        <div class="frow"><label>ИРП, % от цены (FBO)<small>индекс распределения продаж, с 23.03.2026; у FBS = 0</small></label><input class="fin wb" type="number" id="wIrp" value="2" min="0" max="20" step="0.5"></div>
-        <div class="frow"><label>Надбавка за скорость отгрузки, % от цены (FBS)<small>0% при отгрузке до 15 ч; дальше +1,5% за час</small></label><input class="fin wb" type="number" id="wSpeed" value="0" min="0" max="60" step="0.5"></div>
-        <div class="frow"><label>Возврат (невыкуп) целиком, ₽<small>авто: логистика туда без процентных надбавок; поправьте по своей детализации</small></label><input class="fin wb" type="number" id="wRet" value="" min="0" step="1"></div>
+        <div class="frow"><label>Комиссия WB (кВВ), % от цены после скидки<small>одежда: FBS 48%, FBO 43,5% (таблица с 07.07.2026)</small></label><input class="fin wb" type="number" id="wComm" value="48" min="0" max="100" step="0.1"></div>
+        <div class="frow">
+          <label>Скорость отгрузки (FBS)<small>корректирует КОМИССИЮ, не цену; льготы до 31.01.2027</small></label>
+          <select class="fin wb" id="wSpeed">
+            <option value="-5">до 13 ч (−5 п.п.)</option>
+            <option value="-3.5" selected>13–42 ч (−3,5 п.п.)</option>
+            <option value="0">42–48 ч (база)</option>
+            <option value="5">свыше 48 ч (≈+5 п.п.)</option>
+          </select>
+        </div>
+        <div class="frow"><label>Эквайринг, %</label><input class="fin wb" type="number" id="wAcq" value="2" min="0" max="20" step="0.1"></div>
+        <div class="frow"><label>Объём товара, л<small>базовый тариф по литражу: до 1 л — 23–32 ₽ ступенями; свыше 1 л — 46 ₽ + 14 ₽/литр</small></label><input class="fin wb" type="number" id="wVol" value="1.2" min="0.05" step="0.05"></div>
+        <div class="frow"><label>Коэффициент логистики, %<small id="wCoefHint">FBS: коэффициент склада привязки (пример: Электросталь 165%)</small></label><input class="fin wb" type="number" id="wCoef" value="165" min="10" max="400" step="5"></div>
+        <div class="frow"><label>Отгрузка/приёмка через ПВЗ, ₽ на отправление<small id="wPvzHint">FBS: 10 ₽/шт первые 500 шт/сутки, далее 50 ₽ (0 — если через СЦ/курьера)</small></label><input class="fin wb" type="number" id="wPvz" value="0" min="0" step="1"></div>
+        <div class="frow"><label>Возврат (невыкуп), ₽<small>авто: базовый тариф БЕЗ коэффициентов (правило с 20.03.2026); поправьте по детализации</small></label><input class="fin wb" type="number" id="wRet" value="" min="0" step="1"></div>
         <div class="frow"><label>Выкуп, %<small>доля выкупленных из решённых заказов</small></label><input class="fin wb" type="number" id="wBuyout" value="50" min="1" max="100" step="0.5"></div>
       </div>
       <div class="grp">
@@ -290,7 +292,8 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
         <tbody></tbody>
       </table></div>
       <p class="note">На Wildberries маржу сильнее всего двигает связка «скидка × выкуп»: скидка влияет на все процентные
-      расходы сразу, а выкуп — на логистику невыкупов.</p>
+      расходы сразу, а выкуп — на логистику невыкупов. Возврат на WB считается по базовому тарифу без коэффициентов —
+      поэтому выкуп здесь дешевле, чем могло бы показаться.</p>
     </div>
   </div>
   </div>
@@ -442,29 +445,27 @@ function wTariff(vol){
 function wCalc(discPct, p){
   var base = v("wBase");
   var price = base * (1 - discPct/100);
-  var k = (v("wComm") + v("wAcq"))/100;
+  var speedAdj = wScheme === "fbs" ? (parseFloat(F("wSpeed").value) || 0) : 0;
+  var commEff = Math.max(0, v("wComm") + speedAdj);
+  var k = (commEff + v("wAcq"))/100;
   var r = v("wAd")/100;
   var t = F("wTaxon").checked ? (v("wUsn") + v("wVat"))/100 : 0;
   var tariff = wTariff(v("wVol"));
-  var wh = v("wWh")/100;
-  var fwd = tariff * (wScheme === "fbo" ? v("wKtr") * wh : wh);
-  var pctAdd = price * (wScheme === "fbo" ? v("wIrp")/100 : v("wSpeed")/100);
-  var L = fwd + pctAdd;
-  var R = F("wRet").value === "" ? fwd : v("wRet");
-  var logPer = L + (1 - p)/p * R;
+  var coefCost = tariff * v("wCoef")/100;
+  var fwd = coefCost + v("wPvz");
+  var R = F("wRet").value === "" ? tariff : v("wRet");
+  var logPer = fwd + (1 - p)/p * R;
   var S = v("wCogs");
   var profit = price * (1 - k - r - t) - logPer - S;
-  return {base:base, price:price, tariff:tariff, fwd:fwd, pctAdd:pctAdd, logPer:logPer, R:R,
-          commission:price*v("wComm")/100, acquiring:price*v("wAcq")/100, adRUB:price*r,
+  return {base:base, price:price, tariff:tariff, coefCost:coefCost, pvz:v("wPvz"), fwd:fwd,
+          logPer:logPer, R:R, commEff:commEff, speedAdj:speedAdj,
+          commission:price*commEff/100, acquiring:price*v("wAcq")/100, adRUB:price*r,
           tax:price*t, S:S, profit:profit, margin:price>0 ? profit/price*100 : 0,
           roi:S>0 ? profit/S*100 : 0};
 }
 
 function wAutoRet(){
-  var tariff = wTariff(v("wVol"));
-  var wh = v("wWh")/100;
-  var fwd = tariff * (wScheme === "fbo" ? v("wKtr") * wh : wh);
-  F("wRet").value = Math.round(fwd);
+  F("wRet").value = Math.round(wTariff(v("wVol")));
 }
 
 function wRecalc(){
@@ -479,14 +480,15 @@ function wRecalc(){
   F("wkProfit").className = "kpi " + (r.profit < 0 ? "bad" : "good");
   F("wkMargin").className = "kpi " + (r.margin < 0 ? "bad" : "good");
 
+  var commLabel = "Комиссия WB" + (wScheme === "fbs" && r.speedAdj !== 0
+    ? " (" + pf.format(v("wComm")) + "% " + (r.speedAdj > 0 ? "+" : "−") + pf.format(Math.abs(r.speedAdj)) + " п.п. за скорость)" : "");
   document.querySelector("#wUnitTable tbody").innerHTML =
     row("Цена после скидки", r.price, 100) +
     row("· базовая до скидок", r.base, r.price ? r.base/r.price*100 : null, "sub") +
-    row("Комиссия WB", -r.commission, r.price ? -r.commission/r.price*100 : null) +
+    row(commLabel, -r.commission, r.price ? -r.commission/r.price*100 : null) +
     row("Эквайринг", -r.acquiring, r.price ? -r.acquiring/r.price*100 : null) +
-    row("Логистика туда (на 1 продажу)", -r.fwd, r.price ? -r.fwd/r.price*100 : null) +
-    row("· надбавки (ИРП / скорость)", -r.pctAdd, r.price ? -r.pctAdd/r.price*100 : null, "sub") +
-    row("Невыкупы: возврат и обработка", -(r.logPer - r.fwd - r.pctAdd), r.price ? -(r.logPer-r.fwd-r.pctAdd)/r.price*100 : null) +
+    row("Логистика туда (тариф " + pf.format(r.tariff) + " ₽ × " + pf.format(v("wCoef")) + "%" + (r.pvz ? " + ПВЗ " + nf.format(r.pvz) + " ₽" : "") + ")", -r.fwd, r.price ? -r.fwd/r.price*100 : null) +
+    row("Невыкупы: возврат (базовый тариф, без коэфф.)", -(r.logPer - r.fwd), r.price ? -(r.logPer-r.fwd)/r.price*100 : null) +
     row("Реклама", -r.adRUB, r.price ? -r.adRUB/r.price*100 : null) +
     row("Налоги (УСН + НДС)", -r.tax, r.price ? -r.tax/r.price*100 : null) +
     row("Себестоимость", -r.S, r.price ? -r.S/r.price*100 : null) +
@@ -494,7 +496,7 @@ function wRecalc(){
 
   // скидка под целевую маржу
   var m = v("wTarget")/100;
-  var k = (v("wComm") + v("wAcq"))/100, rr = v("wAd")/100;
+  var k = (r.commEff + v("wAcq"))/100, rr = v("wAd")/100;
   var t = F("wTaxon").checked ? (v("wUsn") + v("wVat"))/100 : 0;
   var fixed = r.logPer + r.S;
   var denom = 1 - k - rr - t - m;
@@ -532,7 +534,6 @@ function wRecalc(){
     }
   }
 
-  // чувствительность: выкуп × скидка
   var ps = [0.40, 0.50, 0.60];
   var deltas = [-5, -2.5, 0, 2.5, 5];
   var rows = "";
@@ -551,8 +552,13 @@ function wSetScheme(s){
   F("wFbs").className = "chip-btn" + (s === "fbs" ? " on" : "");
   F("wFbo").className = "chip-btn" + (s === "fbo" ? " on" : "");
   F("wComm").value = s === "fbs" ? 48 : 43.5;
-  F("wKtr").disabled = s !== "fbo";
-  F("wIrp").disabled = s !== "fbo";
+  F("wCoef").value = s === "fbs" ? 165 : 170;
+  F("wCoefHint").textContent = s === "fbs"
+    ? "FBS: коэффициент склада привязки (пример: Электросталь 165%)"
+    : "FBO: единый коэффициент с 15.08.2026 (WB сам распределяет товар; СГТ — 100%)";
+  F("wPvzHint").textContent = s === "fbs"
+    ? "FBS: 10 ₽/шт первые 500 шт/сутки, далее 50 ₽ (0 — если через СЦ/курьера)"
+    : "FBO: приёмка 5 ₽/шт при сдаче в ПВЗ, в СЦ бесплатно";
   F("wSpeed").disabled = s !== "fbs";
   wAutoRet();
   wRecalc();
@@ -564,8 +570,6 @@ F("wFbo").addEventListener("click", function(){ wSetScheme("fbo"); });
 var wRetTouched = false;
 F("wRet").addEventListener("input", function(){ wRetTouched = true; wRecalc(); });
 F("wVol").addEventListener("input", function(){ if (!wRetTouched) wAutoRet(); });
-F("wWh").addEventListener("input", function(){ if (!wRetTouched) wAutoRet(); });
-F("wKtr").addEventListener("input", function(){ if (!wRetTouched) wAutoRet(); });
 
 document.querySelectorAll(".fin, .chk input").forEach(function(el){
   el.addEventListener("input", function(){ ozRecalc(); wRecalc(); });
@@ -573,7 +577,6 @@ document.querySelectorAll(".fin, .chk input").forEach(function(el){
 });
 
 /* старт */
-wAutoRet();
 wSetScheme("fbs");
 ozRecalc();
 })();
