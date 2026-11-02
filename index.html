@@ -226,17 +226,16 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
       <div class="grp">
         <h4>Товар</h4>
         <div class="frow">
-          <label>Артикул (пресет Fluffyfox)<small>подставит цены, объём, выкуп и себестоимость из плана</small></label>
+          <label>Модель (пресет Piro, данные с WB)<small>подставит цену продавца, объём, выкуп и себестоимость — факт WB за 30 дней</small></label>
           <select class="fin wb" id="wPreset">
             <option value="">— свои значения —</option>
-            <option value="446/2черный-флис">446/2 чёрный флис · джинсы</option>
-            <option value="447/2темно-синий_флис">447/2 т-синий флис · брюки</option>
-            <option value="583/2зам-багги-син-В">583/2 багги син · брюки</option>
-            <option value="567/2черный">567/2 чёрный · костюм</option>
-            <option value="568/2голубой">568/2 голубой · костюм</option>
-            <option value="573/2сине-желтый">573/2 сине-жёлтый · шорты</option>
-            <option value="582/2хаки">582/2 хаки · шорты</option>
-            <option value="456/2черный">456/2 чёрный · шорты</option>
+            <option value="M-001">M-001 · свитер</option>
+            <option value="M-002">M-002 · поло вязка</option>
+            <option value="M-003">M-003 · поло вязка</option>
+            <option value="M-004">M-004 · поло вязка</option>
+            <option value="M-005">M-005 · свитер</option>
+            <option value="M-006">M-006 · свитер</option>
+            <option value="M-007">M-007 · поло вязка</option>
           </select>
         </div>
         <div class="frow"><label>Базовая цена до скидок, ₽</label><input class="fin wb" type="number" id="wBase" value="4000" min="0" step="10"></div>
@@ -453,17 +452,18 @@ F("c52").addEventListener("click", function(){ F("comm").value = 52; ozRecalc();
 /* ================= WILDBERRIES ================= */
 var wScheme = "fbs";
 
-/* факт артикулов Fluffyfox из Юнит-плана (цены и объём на дату плана, выкуп — колонка плана,
-   себестоимость — файл себестоимости) */
+/* факт моделей Piro на WB за 30 дн (до 01.11.2026): цена продавца со скидкой (аналитика WB),
+   выкуп = выкупы ÷ заказы по размерам, объём упаковки — по данным поставщика (поло 2,4 л, свитер 3,2 л),
+   себестоимость — финальная партия 10.10.2026. Базовая цена = цена продавца (скидка WB у Piro
+   задаётся отдельно — если нужен расчёт рекомендуемой скидки, поднимите базу вручную). */
 var WPRESETS = {
-  "446/2черный-флис":     {base:10000, disc:50, vol:7.875, buyout:17.6, cogs:970},
-  "447/2темно-синий_флис": {base:3750,  disc:60, vol:4.2,   buyout:71.8, cogs:930},
-  "583/2зам-багги-син-В": {base:9300,  disc:47, vol:4.5,   buyout:32.0, cogs:890},
-  "567/2черный":          {base:6000,  disc:50, vol:3.944, buyout:79.0, cogs:760},
-  "568/2голубой":         {base:8000,  disc:59, vol:5.25,  buyout:63.7, cogs:750},
-  "573/2сине-желтый":     {base:5500,  disc:44, vol:5.25,  buyout:52.3, cogs:720},
-  "582/2хаки":            {base:5000,  disc:57, vol:3.0,   buyout:48.1, cogs:460},
-  "456/2черный":          {base:3800,  disc:50, vol:2.088, buyout:64.0, cogs:420}
+  "M-001": {base:3920, disc:0, vol:3.2, buyout:14.3, cogs:1136},
+  "M-002": {base:4060, disc:0, vol:2.4, buyout:28.7, cogs:1043},
+  "M-003": {base:3290, disc:0, vol:2.4, buyout:10.0, cogs:1043},
+  "M-004": {base:4060, disc:0, vol:2.4, buyout:46.7, cogs:1043},
+  "M-005": {base:3920, disc:0, vol:3.2, buyout:23.1, cogs:1136},
+  "M-006": {base:3920, disc:0, vol:3.2, buyout:27.9, cogs:1062},
+  "M-007": {base:3710, disc:0, vol:2.4, buyout:38.0, cogs:1136}
 };
 
 function wTariff(vol){
