@@ -111,7 +111,7 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
   <div class="meta">
     <span>Модель: <b>на 1 выкуп</b></span>
     <span>Комиссия: <b>от цены продавца</b></span>
-    <span>Налоги: <b>от оплаты покупателя</b></span>
+    <span>Эквайринг и налоги: <b>от оплаты покупателя</b></span>
     <span>Данные: <b>Piro, 03.10–01.11.2026</b></span>
   </div>
 </div></header>
@@ -121,7 +121,7 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
 <section>
   <div class="summary">
     <p><strong>Как читать.</strong> Покупатель на Ozon платит только часть цены — остальное Ozon покрывает скидкой
-    (бывшие баллы). Комиссию Ozon при этом берёт с <strong>полной цены продавца</strong>, а налоги платим только с того,
+    (бывшие баллы). Комиссию Ozon при этом берёт с <strong>полной цены продавца</strong>, а эквайринг и налоги — только с того,
     что заплатил покупатель. Поэтому калькулятор считает от цены продавца, а «скидку Ozon» задаёт отдельным полем —
     это главный рычаг, за которым надо следить после старта оферты 27% (с 27.10.2026).</p>
   </div>
@@ -157,8 +157,8 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
           <button class="chip-btn" id="c52" type="button">52% (без оферты)</button>
         </div>
         <div class="frow"><label>Комиссия Ozon, % от цены продавца<small>с 01.12.2026 формула меняется, деньгами — та же ставка</small></label><input class="fin" type="number" id="comm" value="27" min="0" max="100" step="0.1"></div>
-        <div class="frow"><label>Эквайринг, %<small>факт Piro: 0,5–0,6%</small></label><input class="fin" type="number" id="acq" value="0.6" min="0" step="0.05"></div>
-        <div class="frow"><label>Прочие услуги, %<small>упаковка, страхование и т.п.</small></label><input class="fin" type="number" id="other" value="0.5" min="0" step="0.05"></div>
+        <div class="frow"><label>Эквайринг, % от оплаты покупателя<small>Ozon берёт его с оплаты покупателя; факт Piro: 1,68% ≈ 0,5% от цены продавца</small></label><input class="fin" type="number" id="acq" value="1.7" min="0" step="0.05"></div>
+        <div class="frow"><label>Прочие услуги, % от цены продавца<small>упаковка, страхование и т.п.</small></label><input class="fin" type="number" id="other" value="0.5" min="0" step="0.05"></div>
         <div class="frow"><label>Логистика до ПВЗ, ₽ на отправление<small>тариф: 95 + выдача 25</small></label><input class="fin" type="number" id="logf" value="120" min="0" step="1"></div>
         <div class="frow"><label>Обратная логистика и обработка невыкупа, ₽<small>факт Piro: 185–222 за отправление туда-обратно</small></label><input class="fin" type="number" id="logr" value="210" min="0" step="1"></div>
         <div class="frow"><label>Выкуп, %<small>доля доставленных из решённых заказов</small></label><input class="fin" type="number" id="buyout" value="40" min="1" max="100" step="0.5"></div>
@@ -166,7 +166,7 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
       <div class="grp">
         <h4>Наши расходы</h4>
         <div class="frow"><label>Себестоимость, ₽</label><input class="fin" type="number" id="cogs" value="1136" min="0" step="1"></div>
-        <div class="frow"><label>Реклама на 1 выкуп, ₽<small>факт Piro за 30 дн: 576–3 664 по моделям</small></label><input class="fin" type="number" id="ad" value="1000" min="0" step="10"></div>
+        <div class="frow"><label>Реклама (ДРР), % от цены продавца<small>факт Piro за 30 дн: 8,5–41% по моделям (взвешенно 17%)</small></label><input class="fin" type="number" id="ad" value="15" min="0" max="100" step="0.5"></div>
         <div class="frow"><label>УСН, %</label><input class="fin" type="number" id="usn" value="6" min="0" max="50" step="0.5"></div>
         <div class="frow"><label>НДС, %</label><input class="fin" type="number" id="vat" value="5" min="0" max="25" step="0.5"></div>
         <div class="chk"><input type="checkbox" id="taxon" checked><label for="taxon">учитывать налоги (база — оплата покупателя)</label></div>
@@ -228,7 +228,7 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
       <tr><td>M-007 · поло вязка</td><td class="n">70</td><td class="n">5,0</td><td class="n">4,5</td><td class="n">−0,5</td><td class="n">29,0</td></tr>
     </tbody>
   </table></div>
-  <p class="note">* Расчётно: та же неделя, но комиссия 27% (оферта действует с 27.10.2026) вместо фактических 52%.
+  <p class="note">* Расчётно: тот же период, но комиссия 27% (оферта действует с 27.10.2026) вместо фактических 52%.
   Показывает потенциал оферты, <strong>но</strong>: Ozon уже начал сжимать скидку (доля покупателя выросла с ~31% до 35–40%
   у части моделей) — реальная маржа будет между колонками. За ней следим еженедельно в отчёте по кабинету.
   Разброс факт–модель — малые выборки, кластерный микс логистики и реклама по дате списания.</p>
@@ -242,28 +242,32 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
   <h3>Формулы</h3>
   <div class="callout">
     <p style="font-family:var(--mono);font-size:13.5px;margin-bottom:8px">Логистика на 1 выкуп = L + (1 − выкуп) ÷ выкуп × R</p>
-    <p style="font-family:var(--mono);font-size:13.5px;margin-bottom:8px">Прибыль = ПЦТ × (1 − комиссия − эквайринг − прочие − доля_покупателя × налог) − Логистика − Реклама − Себестоимость</p>
-    <p style="font-family:var(--mono);font-size:13.5px;margin-bottom:0">Цена под маржу = (Себестоимость + Логистика + Реклама) ÷ (1 − комиссия − эквайринг − прочие − доля_покупателя × налог − маржа)</p>
+    <p style="font-family:var(--mono);font-size:13.5px;margin-bottom:8px">Прибыль = ПЦТ × (1 − комиссия − прочие − ДРР) − ПЦТ × доля_покупателя × (эквайринг + налог) − Логистика − Себестоимость</p>
+    <p style="font-family:var(--mono);font-size:13.5px;margin-bottom:0">Цена под маржу = (Себестоимость + Логистика) ÷ (1 − комиссия − прочие − ДРР − доля_покупателя × (эквайринг + налог) − маржа)</p>
   </div>
   <ul class="plain">
-    <li><strong>База налога — оплата покупателя</strong> (цена на сайте), доплата Ozon налогом не облагается (решение
-    25.10.2026, так же считают WILD CRM и Nepsell). При УСН 6% + НДС 5% эффективная ставка = 11/105 ≈ 10,5% от оплаты покупателя.</li>
+    <li><strong>Комиссия и прочие услуги — от цены продавца</strong> (полной, с неё их и удерживает Ozon).</li>
+    <li><strong>Эквайринг и налоги — от оплаты покупателя</strong> (цена на сайте). Эквайринг так и берёт Ozon:
+    факт Piro 1,68% от оплаты покупателя (≈0,5% от цены продавца). Налог при УСН 6% + НДС 5% = 11/105 ≈ 10,5%
+    от оплаты покупателя; доплата Ozon налогом не облагается (решение 25.10.2026, так же считают WILD CRM и Nepsell).</li>
     <li><strong>Логистика считается через выкуп</strong>: мы платим доставку до ПВЗ по каждому отправлению, а обратку
     и обработку — по каждому невыкупу. На 1 выкуп при выкупе 40% это L + 1,5 × R.</li>
     <li><strong>Маржинальность — от цены продавца</strong> (прибыль ÷ продажи по цене продавца) — так считают маржу
     WILD CRM на WB и рентабельность Nepsell.</li>
-    <li><strong>Реклама — рублями на выкуп</strong>, а не процентом: у Piro основная ставка — оплата за заказ (5% от
-    цены), и её величина почти не зависит от того, какую цену мы поставим.</li>
+    <li><strong>Реклама — ДРР, % от цены продавца</strong>. У Piro основная ставка — оплата за заказ (5% от цены),
+    поэтому рекламный расход растёт вместе с ценой.</li>
   </ul>
   <h3>Чем отличается от типовых калькуляторов (и от присланной Google-таблицы)</h3>
   <ul class="plain">
     <li><strong>Логистика не зануляется.</strong> В примере-образце итоговая логистика = 0, потому что не заполнен % выкупа —
     прибыль завышена на 200–400 ₽ с единицы. Здесь выкуп — обязательное поле.</li>
-    <li><strong>Эквайринг по факту 0,5–0,6%</strong>, а не 2% — в примере он завышен втрое.</li>
+    <li><strong>Эквайринг — от оплаты покупателя</strong>, как его реально берёт Ozon (факт Piro 1,68%), а не 2% от цены
+    продавца, как в примере (там он завышен вчетверо).</li>
     <li><strong>Невыкуп — полный круг</strong> (обратная логистика + обработка партнёрами, по факту 185–222 ₽), а не только обратный тариф.</li>
     <li><strong>Маржа от цены продавца</strong>, а не от цены на сайте: в примере знаменатель в ~2 раза меньше, и маржа
     «35%» на деле означает ~17% от цены продавца.</li>
-    <li><strong>Реклама включена</strong> — у Piro это 600–3 700 ₽ на выкуп; без неё картина маржи нереалистична.</li>
+    <li><strong>Реклама включена</strong> (ДРР, % от цены продавца) — у Piro фактически 8,5–41% в зависимости от модели;
+    без неё картина маржи нереалистична.</li>
   </ul>
   <h3>Что меняется с 01.12.2026</h3>
   <p>Ozon отменяет баллы за скидки: скидку будут вычитать из вознаграждения по каждой продаже
@@ -308,18 +312,20 @@ var PRESETS = {
 function v(id){ var x = parseFloat(F(id).value); return isFinite(x) ? x : 0; }
 
 function calc(P, p){
-  var comm = v("comm")/100, acq = v("acq")/100, other = v("other")/100;
+  var comm = v("comm")/100, acq = v("acq")/100, other = v("other")/100, adPct = v("ad")/100;
   var d = v("disc")/100;
-  var L = v("logf"), R = v("logr"), ad = v("ad"), S = v("cogs");
+  var L = v("logf"), R = v("logr"), S = v("cogs");
   var t = F("taxon").checked ? (v("usn") + v("vat")) / (100 + v("vat")) : 0;
   var buyer = P * (1 - d);
   var logPer = L + (1 - p)/p * R;
-  var commission = P * comm, acquiring = P * acq, others = P * other;
+  var commission = P * comm, others = P * other, adRUB = P * adPct;
+  var acquiring = buyer * acq;
   var tax = buyer * t;
-  var profit = P - commission - acquiring - others - logPer - ad - S - tax;
+  var profit = P - commission - others - adRUB - acquiring - tax - logPer - S;
   return {P:P, p:p, buyer:buyer, commission:commission, acquiring:acquiring, others:others,
-          logPer:logPer, ad:ad, tax:tax, S:S, profit:profit, margin:P>0 ? profit/P*100 : 0,
-          roi:S>0 ? profit/S*100 : 0, payout:P - commission - acquiring - L};
+          logPer:logPer, adPct:adPct, adRUB:adRUB, tax:tax, S:S, profit:profit,
+          margin:P>0 ? profit/P*100 : 0, roi:S>0 ? profit/S*100 : 0,
+          payout:P - commission - acquiring - L};
 }
 
 function row(label, val, pct, cls){
@@ -344,27 +350,27 @@ function recalc(){
     row("Цена продавца (ПЦТ)", r.P, 100) +
     row("· платит покупатель (цена на сайте)", r.buyer, r.P ? r.buyer/r.P*100 : null, "sub") +
     row("· доплачивает Ozon (скидка)", r.P - r.buyer, r.P ? (r.P-r.buyer)/r.P*100 : null, "sub") +
-    row("Вознаграждение Ozon", -r.commission, -r.P ? -r.commission/r.P*100 : null) +
-    row("Эквайринг", -r.acquiring, r.P ? -r.acquiring/r.P*100 : null) +
+    row("Вознаграждение Ozon", -r.commission, r.P ? -r.commission/r.P*100 : null) +
+    row("Эквайринг (от оплаты покупателя)", -r.acquiring, r.P ? -r.acquiring/r.P*100 : null) +
     row("Прочие услуги", -r.others, r.P ? -r.others/r.P*100 : null) +
     row("Логистика до ПВЗ (на 1 выкуп)", -v("logf"), r.P ? -v("logf")/r.P*100 : null) +
     row("Невыкупы: обратка и обработка", -(r.logPer - v("logf")), r.P ? -(r.logPer-v("logf"))/r.P*100 : null) +
-    row("Реклама", -r.ad, r.P ? -r.ad/r.P*100 : null) +
+    row("Реклама (ДРР)", -r.adRUB, r.P ? -r.adRUB/r.P*100 : null) +
     row("Налоги (УСН + НДС с оплаты покупателя)", -r.tax, r.P ? -r.tax/r.P*100 : null) +
     row("Себестоимость", -r.S, r.P ? -r.S/r.P*100 : null) +
     row("Прибыль на 1 выкуп", r.profit, r.margin, "total");
 
   // цена под целевую маржу
   var m = v("target")/100;
-  var comm = v("comm")/100, acq = v("acq")/100, other = v("other")/100;
+  var comm = v("comm")/100, acq = v("acq")/100, other = v("other")/100, adPct = v("ad")/100;
   var t = F("taxon").checked ? (v("usn") + v("vat")) / (100 + v("vat")) : 0;
-  var fixed = v("cogs") + r.logPer + v("ad");
-  var denom = 1 - comm - acq - other - (1 - v("disc")/100) * t - m;
+  var fixed = v("cogs") + r.logPer;
+  var denom = 1 - comm - other - adPct - (1 - v("disc")/100) * (acq + t) - m;
   var warn = F("warn");
   var tb2 = document.querySelector("#targetTable tbody");
   if (denom <= 0.001){
     warn.style.display = "block";
-    warn.textContent = "При таких параметрах целевая маржа недостижима: комиссия + эквайринг + налоги + маржа ≥ 100% цены. Снижайте комиссию (оферта), поднимайте цену продавца или улучшайте выкуп.";
+    warn.textContent = "При таких параметрах целевая маржа недостижима: комиссия + ДРР + эквайринг + налоги + маржа ≥ 100% цены. Снижайте комиссию (оферта), поднимайте цену продавца или улучшайте выкуп.";
     tb2.innerHTML = '<tr><td>Цена под целевую маржу</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>';
     F("targetNote").textContent = "";
   } else {
