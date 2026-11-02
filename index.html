@@ -134,7 +134,7 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
       <div class="grp">
         <h4>Товар</h4>
         <div class="frow">
-          <label>Модель (пресет Piro)<small>подставит цену и себестоимость из факта</small></label>
+          <label>Модель (пресет Piro)<small>подставит факт модели за 30 дней: цена, скидка Ozon, выкуп, логистика, ДРР</small></label>
           <select class="fin" id="preset">
             <option value="">— свои значения —</option>
             <option value="M-001">M-001 · свитер</option>
@@ -225,6 +225,20 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
       <div class="ph">Входные данные</div>
       <div class="grp">
         <h4>Товар</h4>
+        <div class="frow">
+          <label>Артикул (пресет Fluffyfox)<small>подставит цены, объём, выкуп и себестоимость из плана</small></label>
+          <select class="fin wb" id="wPreset">
+            <option value="">— свои значения —</option>
+            <option value="446/2черный-флис">446/2 чёрный флис · джинсы</option>
+            <option value="447/2темно-синий_флис">447/2 т-синий флис · брюки</option>
+            <option value="583/2зам-багги-син-В">583/2 багги син · брюки</option>
+            <option value="567/2черный">567/2 чёрный · костюм</option>
+            <option value="568/2голубой">568/2 голубой · костюм</option>
+            <option value="573/2сине-желтый">573/2 сине-жёлтый · шорты</option>
+            <option value="582/2хаки">582/2 хаки · шорты</option>
+            <option value="456/2черный">456/2 чёрный · шорты</option>
+          </select>
+        </div>
         <div class="frow"><label>Базовая цена до скидок, ₽</label><input class="fin wb" type="number" id="wBase" value="4000" min="0" step="10"></div>
         <div class="frow"><label>Скидка продавца сейчас, %</label><input class="fin wb" type="number" id="wDisc" value="55" min="0" max="95" step="0.5"></div>
       </div>
@@ -332,14 +346,16 @@ function row(label, val, pct, cls){
 }
 
 /* ================= OZON ================= */
+/* факт моделей Piro за 30 дней (03.10–01.11.2026): цена — средняя по выкупам, скидка Ozon — по оплате
+   покупателя, выкуп — решённые заказы, логистика/невыкуп — по начислениям, ДРР — реклама ÷ продажи */
 var PRESETS = {
-  "M-001": {price:8900, cogs:1136},
-  "M-002": {price:4200, cogs:1043},
-  "M-003": {price:5180, cogs:1043},
-  "M-004": {price:6816, cogs:1043},
-  "M-005": {price:7650, cogs:1136},
-  "M-006": {price:8500, cogs:1062},
-  "M-007": {price:6049, cogs:1136}
+  "M-001": {price:8900, disc:66.7, buyout:38.9, logf:139, logr:222, ad:41.2, cogs:1136},
+  "M-002": {price:4200, disc:68.0, buyout:38.5, logf:84,  logr:196, ad:14.3, cogs:1043},
+  "M-003": {price:5180, disc:68.4, buyout:34.6, logf:87,  logr:210, ad:18.8, cogs:1043},
+  "M-004": {price:6816, disc:70.4, buyout:54.4, logf:96,  logr:185, ad:8.5,  cogs:1043},
+  "M-005": {price:7650, disc:67.9, buyout:29.3, logf:109, logr:194, ad:28.2, cogs:1136},
+  "M-006": {price:8500, disc:71.0, buyout:34.8, logf:167, logr:209, ad:19.8, cogs:1062},
+  "M-007": {price:6049, disc:68.9, buyout:45.9, logf:92,  logr:211, ad:16.1, cogs:1136}
 };
 
 function ozCalc(P, p){
@@ -425,7 +441,10 @@ function ozRecalc(){
 
 F("preset").addEventListener("change", function(){
   var pr = PRESETS[this.value];
-  if (pr){ F("price").value = pr.price; F("cogs").value = pr.cogs; }
+  if (pr){
+    F("price").value = pr.price; F("disc").value = pr.disc; F("buyout").value = pr.buyout;
+    F("logf").value = pr.logf; F("logr").value = pr.logr; F("ad").value = pr.ad; F("cogs").value = pr.cogs;
+  }
   ozRecalc();
 });
 F("c27").addEventListener("click", function(){ F("comm").value = 27; ozRecalc(); });
@@ -433,6 +452,19 @@ F("c52").addEventListener("click", function(){ F("comm").value = 52; ozRecalc();
 
 /* ================= WILDBERRIES ================= */
 var wScheme = "fbs";
+
+/* факт артикулов Fluffyfox из Юнит-плана (цены и объём на дату плана, выкуп — колонка плана,
+   себестоимость — файл себестоимости) */
+var WPRESETS = {
+  "446/2черный-флис":     {base:10000, disc:50, vol:7.875, buyout:17.6, cogs:970},
+  "447/2темно-синий_флис": {base:3750,  disc:60, vol:4.2,   buyout:71.8, cogs:930},
+  "583/2зам-багги-син-В": {base:9300,  disc:47, vol:4.5,   buyout:32.0, cogs:890},
+  "567/2черный":          {base:6000,  disc:50, vol:3.944, buyout:79.0, cogs:760},
+  "568/2голубой":         {base:8000,  disc:59, vol:5.25,  buyout:63.7, cogs:750},
+  "573/2сине-желтый":     {base:5500,  disc:44, vol:5.25,  buyout:52.3, cogs:720},
+  "582/2хаки":            {base:5000,  disc:57, vol:3.0,   buyout:48.1, cogs:460},
+  "456/2черный":          {base:3800,  disc:50, vol:2.088, buyout:64.0, cogs:420}
+};
 
 function wTariff(vol){
   if (vol <= 0.2) return 23;
@@ -566,6 +598,15 @@ function wSetScheme(s){
 }
 F("wFbs").addEventListener("click", function(){ wSetScheme("fbs"); });
 F("wFbo").addEventListener("click", function(){ wSetScheme("fbo"); });
+F("wPreset").addEventListener("change", function(){
+  var pr = WPRESETS[this.value];
+  if (pr){
+    F("wBase").value = pr.base; F("wDisc").value = pr.disc; F("wVol").value = pr.vol;
+    F("wCogs").value = pr.cogs; F("wBuyout").value = pr.buyout;
+    if (!wRetTouched) wAutoRet();
+  }
+  wRecalc();
+});
 
 /* возврат автоподставляется, пока пользователь не правил его вручную */
 var wRetTouched = false;
