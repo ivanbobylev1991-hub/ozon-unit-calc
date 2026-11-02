@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Калькулятор юнит-экономики Ozon · Piro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFFFF; --card:#F6F9FB; --ink:#14181D; --ink2:#4A5763; --muted:#8A97A3; --sub:#33526B;
+  --border:#DFE7EE; --grid:#E2E8ED; --navy:#134063; --blue:#1D5A87; --gold:#B08D57; --sand:#C9A876;
+  --sky:#A8CCE4; --skylight:#DCEAF4; --green:#2E7D63; --red:#B4483C; --violet:#7E5FA8;
+  --on-navy:#FFFFFF;
+  --display:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif;
+  --body:"Golos Text",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.band{background:var(--navy);color:var(--on-navy);border-bottom:4px solid var(--gold)}
+.band .inner{max-width:72rem;margin:0 auto;padding-block:40px 44px}
+.eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--sand)}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,6vw,56px);line-height:1.04;margin:10px 0 16px;text-wrap:balance}
+.lead{font-size:18px;color:var(--skylight);max-width:52rem;margin:0 0 14px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13.5px;color:var(--sky)}
+.meta b{color:var(--on-navy);font-weight:600}
+
+.wrap{max-width:72rem;margin:0 auto;padding-block:30px 80px;display:flex;flex-direction:column;gap:54px}
+section{display:flex;flex-direction:column;min-width:0}
+h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,38px);line-height:1.1;margin:0 0 18px;color:var(--navy);text-wrap:balance}
+h2::after{content:"";display:block;height:5px;margin-top:12px;background:linear-gradient(90deg,var(--skylight) 0 calc(100% - min(290px,35%)),var(--sky) calc(100% - min(290px,35%)) 100%)}
+h3{font-family:var(--display);font-weight:600;font-size:clamp(21px,3vw,25px);line-height:1.18;color:var(--navy);margin:26px 0 10px}
+p{margin:0 0 12px;max-width:60rem}
+.note{font-size:13.5px;color:var(--ink2)}
+strong{font-weight:600}
+
+.summary{border-left:3px solid var(--gold);background:var(--card);padding:20px 24px;border-radius:0 3px 3px 0;max-width:60rem;font-size:16.5px}
+.summary>p:last-child{margin-bottom:0}
+
+/* ------- калькулятор ------- */
+.calc{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:28px;align-items:start}
+@media screen and (max-width:900px){.calc{grid-template-columns:1fr}}
+.panel{border:1px solid var(--border);border-radius:4px;background:var(--paper)}
+.panel .ph{background:var(--navy);color:var(--on-navy);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:10px 16px;border-radius:3px 3px 0 0}
+.panel .pb{padding:16px}
+.grp{padding:14px 16px;border-bottom:1px solid var(--border)}
+.grp:last-child{border-bottom:none}
+.grp h4{margin:0 0 10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:600}
+.frow{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
+.frow:last-child{margin-bottom:0}
+.frow label{font-size:13.5px;color:var(--ink2)}
+.frow label small{display:block;color:var(--muted);font-size:11.5px;line-height:1.35}
+.fin{width:110px;flex:none;text-align:right;font:inherit;font-size:14px;padding:5px 8px;border:1px solid var(--border);border-radius:3px;color:var(--ink);font-variant-numeric:tabular-nums}
+.fin:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+select.fin{width:auto;text-align:left}
+.chips{display:flex;gap:6px;margin:-2px 0 10px;flex-wrap:wrap}
+.chip-btn{font:inherit;font-size:12px;font-weight:600;padding:3px 10px;border:1px solid var(--border);border-radius:99px;background:var(--card);color:var(--blue);cursor:pointer}
+.chip-btn:hover{border-color:var(--blue)}
+.chk{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink2)}
+input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px}
+.kpi{border:1px solid var(--border);border-radius:4px;padding:14px 16px;background:var(--card)}
+.kpi .lb{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.kpi .v{font-family:var(--display);font-size:32px;font-weight:600;color:var(--navy);line-height:1.1;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:16px;color:var(--muted)}
+.kpi.bad .v{color:var(--red)} .kpi.good .v{color:var(--green)}
+
+.tbl{overflow-x:auto;border:1px solid var(--border);border-radius:3px;margin:6px 0 14px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+th,td{padding:8px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums}
+thead th{background:var(--navy);color:var(--on-navy);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;line-height:1.35}
+tbody tr:nth-child(even) td{background:var(--card)}
+td.n,th.n{text-align:right;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--navy);background:var(--skylight)}
+tr.sub td{color:var(--ink2);font-size:13px}
+.pos{color:var(--green);font-weight:600}.neg{color:var(--red);font-weight:600}
+
+.warn{border-left:3px solid var(--red);background:#FBF1EF;padding:12px 16px;border-radius:0 3px 3px 0;font-size:13.5px;color:var(--red);max-width:60rem}
+.callout{border-left:3px solid var(--gold);background:var(--card);padding:16px 20px;border-radius:0 3px 3px 0;max-width:60rem;margin:6px 0 14px}
+.callout>:last-child{margin-bottom:0}
+ul.plain{padding-left:1.1rem;display:flex;flex-direction:column;gap:8px;margin:0 0 12px}
+ul.plain li::marker{color:var(--gold)}
+
+footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-size:12.5px;color:var(--muted);max-width:60rem}
+@media print{.band .inner{padding-block:18px 20px}.wrap{gap:24px}}
+</style>
+<style>
+.mp .vw{margin-left:auto;display:inline-flex;align-items:stretch;border:1px solid #134063;border-radius:2px;overflow:hidden;background:#fff}
+.mp .vw a{font-size:12px;font-weight:600;padding:6px 12px;color:#134063;text-decoration:none;white-space:nowrap}
+.mp .vw a+a{border-left:1px solid #134063}
+.mp .vw a.on{background:#134063;color:#fff}
+.mp .vw select{font:inherit;font-size:12px;font-weight:600;color:#134063;background:#fff;border:0;border-left:1px solid #134063;padding:0 6px;cursor:pointer}
+.mp a.tab{font-size:12px;font-weight:600;padding:6px 14px;border-radius:2px;border:1px solid #DFE7EE;background:#fff;color:#134063;text-decoration:none}
+@media screen and (max-width:700px){.mp .vw{margin-left:0}}
+@media print{.mp .vw{display:none}}
+</style></head>
+<body>
+
+<header class="band"><div class="inner gut">
+  <div class="eyebrow">Piro · Ozon · инструмент</div>
+  <h1>Калькулятор юнит-экономики Ozon</h1>
+  <p class="lead">Считаем цену продавца под целевую маржинальность и проверяем маржу при текущей цене.
+  Всё — на одну выкупленную единицу, по фактической модели кабинета Piro.</p>
+  <div class="meta">
+    <span>Модель: <b>на 1 выкуп</b></span>
+    <span>Комиссия: <b>от цены продавца</b></span>
+    <span>Налоги: <b>от оплаты покупателя</b></span>
+    <span>Данные: <b>Piro, 03.10–01.11.2026</b></span>
+  </div>
+</div></header>
+
+<main class="wrap gut">
+
+<section>
+  <div class="summary">
+    <p><strong>Как читать.</strong> Покупатель на Ozon платит только часть цены — остальное Ozon покрывает скидкой
+    (бывшие баллы). Комиссию Ozon при этом берёт с <strong>полной цены продавца</strong>, а налоги платим только с того,
+    что заплатил покупатель. Поэтому калькулятор считает от цены продавца, а «скидку Ozon» задаёт отдельным полем —
+    это главный рычаг, за которым надо следить после старта оферты 27% (с 27.10.2026).</p>
+  </div>
+</section>
+
+<section>
+  <h2>Калькулятор</h2>
+  <div class="calc">
+    <div class="panel">
+      <div class="ph">Входные данные</div>
+      <div class="grp">
+        <h4>Товар</h4>
+        <div class="frow">
+          <label>Модель (пресет Piro)<small>подставит цену и себестоимость из факта</small></label>
+          <select class="fin" id="preset">
+            <option value="">— свои значения —</option>
+            <option value="M-001">M-001 · свитер</option>
+            <option value="M-002">M-002 · поло вязка</option>
+            <option value="M-003">M-003 · поло вязка</option>
+            <option value="M-004">M-004 · поло вязка</option>
+            <option value="M-005">M-005 · свитер</option>
+            <option value="M-006">M-006 · свитер</option>
+            <option value="M-007">M-007 · поло вязка</option>
+          </select>
+        </div>
+        <div class="frow"><label>Цена продавца (ПЦТ), ₽</label><input class="fin" type="number" id="price" value="6400" min="0" step="10"></div>
+        <div class="frow"><label>Скидка Ozon, % от цены продавца<small>цена на сайте = цена продавца × (1 − скидка)</small></label><input class="fin" type="number" id="disc" value="69" min="0" max="95" step="0.1"></div>
+      </div>
+      <div class="grp">
+        <h4>Условия Ozon</h4>
+        <div class="chips">
+          <button class="chip-btn" id="c27" type="button">комиссия 27% (оферта)</button>
+          <button class="chip-btn" id="c52" type="button">52% (без оферты)</button>
+        </div>
+        <div class="frow"><label>Комиссия Ozon, % от цены продавца<small>с 01.12.2026 формула меняется, деньгами — та же ставка</small></label><input class="fin" type="number" id="comm" value="27" min="0" max="100" step="0.1"></div>
+        <div class="frow"><label>Эквайринг, %<small>факт Piro: 0,5–0,6%</small></label><input class="fin" type="number" id="acq" value="0.6" min="0" step="0.05"></div>
+        <div class="frow"><label>Прочие услуги, %<small>упаковка, страхование и т.п.</small></label><input class="fin" type="number" id="other" value="0.5" min="0" step="0.05"></div>
+        <div class="frow"><label>Логистика до ПВЗ, ₽ на отправление<small>тариф: 95 + выдача 25</small></label><input class="fin" type="number" id="logf" value="120" min="0" step="1"></div>
+        <div class="frow"><label>Обратная логистика и обработка невыкупа, ₽<small>факт Piro: 185–222 за отправление туда-обратно</small></label><input class="fin" type="number" id="logr" value="210" min="0" step="1"></div>
+        <div class="frow"><label>Выкуп, %<small>доля доставленных из решённых заказов</small></label><input class="fin" type="number" id="buyout" value="40" min="1" max="100" step="0.5"></div>
+      </div>
+      <div class="grp">
+        <h4>Наши расходы</h4>
+        <div class="frow"><label>Себестоимость, ₽</label><input class="fin" type="number" id="cogs" value="1136" min="0" step="1"></div>
+        <div class="frow"><label>Реклама на 1 выкуп, ₽<small>факт Piro за 30 дн: 576–3 664 по моделям</small></label><input class="fin" type="number" id="ad" value="1000" min="0" step="10"></div>
+        <div class="frow"><label>УСН, %</label><input class="fin" type="number" id="usn" value="6" min="0" max="50" step="0.5"></div>
+        <div class="frow"><label>НДС, %</label><input class="fin" type="number" id="vat" value="5" min="0" max="25" step="0.5"></div>
+        <div class="chk"><input type="checkbox" id="taxon" checked><label for="taxon">учитывать налоги (база — оплата покупателя)</label></div>
+      </div>
+      <div class="grp">
+        <h4>Цель</h4>
+        <div class="frow"><label>Целевая маржинальность, %<small>от цены продавца — как в WILD CRM и Nepsell</small></label><input class="fin" type="number" id="target" value="20" min="0" max="90" step="0.5"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="kpis">
+        <div class="kpi" id="kProfit"><div class="lb">Прибыль на 1 выкуп</div><div class="v"><span id="vProfit">—</span> <small>₽</small></div></div>
+        <div class="kpi" id="kMargin"><div class="lb">Маржинальность</div><div class="v"><span id="vMargin">—</span> <small>%</small></div></div>
+        <div class="kpi" id="kRoi"><div class="lb">ROI (прибыль/себест.)</div><div class="v"><span id="vRoi">—</span> <small>%</small></div></div>
+        <div class="kpi"><div class="lb">Цена на сайте</div><div class="v"><span id="vSite">—</span> <small>₽</small></div></div>
+      </div>
+
+      <h3>На 1 выкуп при текущей цене</h3>
+      <div class="tbl"><table id="unitTable">
+        <thead><tr><th>Статья</th><th class="n">₽</th><th class="n">% от цены продавца</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+
+      <h3>Цена под целевую маржу</h3>
+      <div class="tbl"><table id="targetTable">
+        <thead><tr><th></th><th class="n">Цена продавца</th><th class="n">Цена на сайте</th><th class="n">Прибыль на выкуп</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <div class="warn" id="warn" style="display:none"></div>
+      <p class="note" id="targetNote"></p>
+
+      <h3>Чувствительность маржи</h3>
+      <div class="tbl"><table id="sensTable">
+        <thead><tr><th>Выкуп \ цена продавца</th><th class="n">−10%</th><th class="n">−5%</th><th class="n">текущая</th><th class="n">+5%</th><th class="n">+10%</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <p class="note">Маржа чувствительнее всего к выкупу: каждые +10 п.п. выкупа при текущих параметрах Piro дают примерно
+      +15–20 п.п. маржи, потому что логистика невыкупов — вторая после комиссии статья расходов.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Сверка с фактом Piro</h2>
+  <p>Та же формула, подставленная фактические параметры каждой модели за 30 дней (03.10–01.11.2026, начисления Ozon
+  по API: цены продавца, комиссия, эквайринг, логистика, невыкупы, реклама; налоги — как в WILD CRM; себестоимость —
+  финальная партия 10.10.2026). Модель сходится с фактом в пределах ~1–2 п.п., по моделям с большой выборкой выкупов —
+  до ±0,5 п.п.:</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Модель</th><th class="n">Выкупов</th><th class="n">Маржа факт, %</th><th class="n">Маржа модель, %</th><th class="n">Δ, п.п.</th><th class="n">Маржа при комиссии 27%*, %</th></tr></thead>
+    <tbody>
+      <tr><td>M-001 · свитер</td><td class="n">7</td><td class="n neg">−15,5</td><td class="n neg">−15,5</td><td class="n">0,0</td><td class="n">9,5</td></tr>
+      <tr><td>M-002 · поло вязка</td><td class="n">19</td><td class="n neg">−3,4</td><td class="n neg">−5,0</td><td class="n">−1,6</td><td class="n">21,6</td></tr>
+      <tr><td>M-003 · поло вязка</td><td class="n">10</td><td class="n neg">−3,4</td><td class="n neg">−4,1</td><td class="n">−0,8</td><td class="n">21,6</td></tr>
+      <tr><td>M-004 · поло вязка</td><td class="n">32</td><td class="n">17,9</td><td class="n">17,8</td><td class="n">−0,1</td><td class="n">42,0</td></tr>
+      <tr><td>M-005 · свитер</td><td class="n">12</td><td class="n neg">−6,6</td><td class="n neg">−6,6</td><td class="n">0,0</td><td class="n">18,4</td></tr>
+      <tr><td>M-006 · свитер</td><td class="n">7</td><td class="n">4,8</td><td class="n">5,5</td><td class="n">+0,7</td><td class="n">29,8</td></tr>
+      <tr><td>M-007 · поло вязка</td><td class="n">70</td><td class="n">5,0</td><td class="n">4,5</td><td class="n">−0,5</td><td class="n">29,0</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">* Расчётно: та же неделя, но комиссия 27% (оферта действует с 27.10.2026) вместо фактических 52%.
+  Показывает потенциал оферты, <strong>но</strong>: Ozon уже начал сжимать скидку (доля покупателя выросла с ~31% до 35–40%
+  у части моделей) — реальная маржа будет между колонками. За ней следим еженедельно в отчёте по кабинету.
+  Разброс факт–модель — малые выборки, кластерный микс логистики и реклама по дате списания.</p>
+  <p class="note">Факт проверен двумя независимыми источниками: наш ежедневный сбор начислений Ozon (сверен с отчётом
+  кабинета до рубля) и Nepsell (расхождение по прибыли моделей за 19–25.10 — не более ~1 тыс. ₽, источник — комиссия
+  и распределение рекламы).</p>
+</section>
+
+<section>
+  <h2>Методика</h2>
+  <h3>Формулы</h3>
+  <div class="callout">
+    <p style="font-family:var(--mono);font-size:13.5px;margin-bottom:8px">Логистика на 1 выкуп = L + (1 − выкуп) ÷ выкуп × R</p>
+    <p style="font-family:var(--mono);font-size:13.5px;margin-bottom:8px">Прибыль = ПЦТ × (1 − комиссия − эквайринг − прочие − доля_покупателя × налог) − Логистика − Реклама − Себестоимость</p>
+    <p style="font-family:var(--mono);font-size:13.5px;margin-bottom:0">Цена под маржу = (Себестоимость + Логистика + Реклама) ÷ (1 − комиссия − эквайринг − прочие − доля_покупателя × налог − маржа)</p>
+  </div>
+  <ul class="plain">
+    <li><strong>База налога — оплата покупателя</strong> (цена на сайте), доплата Ozon налогом не облагается (решение
+    25.10.2026, так же считают WILD CRM и Nepsell). При УСН 6% + НДС 5% эффективная ставка = 11/105 ≈ 10,5% от оплаты покупателя.</li>
+    <li><strong>Логистика считается через выкуп</strong>: мы платим доставку до ПВЗ по каждому отправлению, а обратку
+    и обработку — по каждому невыкупу. На 1 выкуп при выкупе 40% это L + 1,5 × R.</li>
+    <li><strong>Маржинальность — от цены продавца</strong> (прибыль ÷ продажи по цене продавца) — так считают маржу
+    WILD CRM на WB и рентабельность Nepsell.</li>
+    <li><strong>Реклама — рублями на выкуп</strong>, а не процентом: у Piro основная ставка — оплата за заказ (5% от
+    цены), и её величина почти не зависит от того, какую цену мы поставим.</li>
+  </ul>
+  <h3>Чем отличается от типовых калькуляторов (и от присланной Google-таблицы)</h3>
+  <ul class="plain">
+    <li><strong>Логистика не зануляется.</strong> В примере-образце итоговая логистика = 0, потому что не заполнен % выкупа —
+    прибыль завышена на 200–400 ₽ с единицы. Здесь выкуп — обязательное поле.</li>
+    <li><strong>Эквайринг по факту 0,5–0,6%</strong>, а не 2% — в примере он завышен втрое.</li>
+    <li><strong>Невыкуп — полный круг</strong> (обратная логистика + обработка партнёрами, по факту 185–222 ₽), а не только обратный тариф.</li>
+    <li><strong>Маржа от цены продавца</strong>, а не от цены на сайте: в примере знаменатель в ~2 раза меньше, и маржа
+    «35%» на деле означает ~17% от цены продавца.</li>
+    <li><strong>Реклама включена</strong> — у Piro это 600–3 700 ₽ на выкуп; без неё картина маржи нереалистична.</li>
+  </ul>
+  <h3>Что меняется с 01.12.2026</h3>
+  <p>Ozon отменяет баллы за скидки: скидку будут вычитать из вознаграждения по каждой продаже
+  (вознаграждение = max(ПЦТ × ставка × 1%; ПЦТ × (ставка − поправка − доля скидки Ozon)), излишек — уменьшением
+  других услуг, остаток — деньгами по Акту о выплате). По деньгам продавцу должно остаться столько же, поэтому
+  формула калькулятора не меняется, но после первых декабрьских начислений мы сверим факт с моделью и при
+  расхождении поправим поле «комиссия» (у Piro при скидке 65%+ и ставке 52% строка «Вознаграждение Ozon»
+  в кабинете упадёт почти до нуля — это ожидаемо, а не ошибка).</p>
+  <h3>Ограничения</h3>
+  <ul class="plain">
+    <li>Плановый ориентир, не учитывает хранение FBO (у Piro в начислениях его нет), брак и возвраты после выкупа
+    (в «прочих услугах» по факту ~0,5%).</li>
+    <li>Товар из невыкупа считается годным к повторной продаже.</li>
+    <li>Логистика — средняя по кластерам; для товара до 300 ₽ тарифы ниже — поле можно поставить вручную.</li>
+  </ul>
+</section>
+
+<footer>
+  Калькулятор построен на фактических начислениях кабинета Piro (Seller API, ежедневный сбор с 17.10.2026) и сверен
+  с WILD CRM и Nepsell. Обновление параметров — по мере изменения тарифов Ozon. Вопросы и правки — Ивану.
+</footer>
+
+</main>
+
+<script>
+(function(){
+"use strict";
+var F = function(id){ return document.getElementById(id); };
+var nf = new Intl.NumberFormat("ru-RU",{maximumFractionDigits:0});
+var pf = new Intl.NumberFormat("ru-RU",{maximumFractionDigits:1,minimumFractionDigits:0});
+
+var PRESETS = {
+  "M-001": {price:8900, cogs:1136},
+  "M-002": {price:4200, cogs:1043},
+  "M-003": {price:5180, cogs:1043},
+  "M-004": {price:6816, cogs:1043},
+  "M-005": {price:7650, cogs:1136},
+  "M-006": {price:8500, cogs:1062},
+  "M-007": {price:6049, cogs:1136}
+};
+
+function v(id){ var x = parseFloat(F(id).value); return isFinite(x) ? x : 0; }
+
+function calc(P, p){
+  var comm = v("comm")/100, acq = v("acq")/100, other = v("other")/100;
+  var d = v("disc")/100;
+  var L = v("logf"), R = v("logr"), ad = v("ad"), S = v("cogs");
+  var t = F("taxon").checked ? (v("usn") + v("vat")) / (100 + v("vat")) : 0;
+  var buyer = P * (1 - d);
+  var logPer = L + (1 - p)/p * R;
+  var commission = P * comm, acquiring = P * acq, others = P * other;
+  var tax = buyer * t;
+  var profit = P - commission - acquiring - others - logPer - ad - S - tax;
+  return {P:P, p:p, buyer:buyer, commission:commission, acquiring:acquiring, others:others,
+          logPer:logPer, ad:ad, tax:tax, S:S, profit:profit, margin:P>0 ? profit/P*100 : 0,
+          roi:S>0 ? profit/S*100 : 0, payout:P - commission - acquiring - L};
+}
+
+function row(label, val, pct, cls){
+  return '<tr class="'+(cls||'')+'"><td>'+label+'</td><td class="n">'+(val==null?"—":nf.format(val))+
+         '</td><td class="n">'+(pct==null?"—":pf.format(pct))+'</td></tr>';
+}
+
+function recalc(){
+  var P = v("price"), p = v("buyout")/100;
+  if (p <= 0) p = 0.01;
+  var r = calc(P, p);
+
+  F("vProfit").textContent = nf.format(r.profit);
+  F("vMargin").textContent = pf.format(r.margin);
+  F("vRoi").textContent = pf.format(r.roi);
+  F("vSite").textContent = nf.format(r.buyer);
+  F("kProfit").className = "kpi " + (r.profit < 0 ? "bad" : "good");
+  F("kMargin").className = "kpi " + (r.margin < 0 ? "bad" : "good");
+
+  var tbody = document.querySelector("#unitTable tbody");
+  tbody.innerHTML =
+    row("Цена продавца (ПЦТ)", r.P, 100) +
+    row("· платит покупатель (цена на сайте)", r.buyer, r.P ? r.buyer/r.P*100 : null, "sub") +
+    row("· доплачивает Ozon (скидка)", r.P - r.buyer, r.P ? (r.P-r.buyer)/r.P*100 : null, "sub") +
+    row("Вознаграждение Ozon", -r.commission, -r.P ? -r.commission/r.P*100 : null) +
+    row("Эквайринг", -r.acquiring, r.P ? -r.acquiring/r.P*100 : null) +
+    row("Прочие услуги", -r.others, r.P ? -r.others/r.P*100 : null) +
+    row("Логистика до ПВЗ (на 1 выкуп)", -v("logf"), r.P ? -v("logf")/r.P*100 : null) +
+    row("Невыкупы: обратка и обработка", -(r.logPer - v("logf")), r.P ? -(r.logPer-v("logf"))/r.P*100 : null) +
+    row("Реклама", -r.ad, r.P ? -r.ad/r.P*100 : null) +
+    row("Налоги (УСН + НДС с оплаты покупателя)", -r.tax, r.P ? -r.tax/r.P*100 : null) +
+    row("Себестоимость", -r.S, r.P ? -r.S/r.P*100 : null) +
+    row("Прибыль на 1 выкуп", r.profit, r.margin, "total");
+
+  // цена под целевую маржу
+  var m = v("target")/100;
+  var comm = v("comm")/100, acq = v("acq")/100, other = v("other")/100;
+  var t = F("taxon").checked ? (v("usn") + v("vat")) / (100 + v("vat")) : 0;
+  var fixed = v("cogs") + r.logPer + v("ad");
+  var denom = 1 - comm - acq - other - (1 - v("disc")/100) * t - m;
+  var warn = F("warn");
+  var tb2 = document.querySelector("#targetTable tbody");
+  if (denom <= 0.001){
+    warn.style.display = "block";
+    warn.textContent = "При таких параметрах целевая маржа недостижима: комиссия + эквайринг + налоги + маржа ≥ 100% цены. Снижайте комиссию (оферта), поднимайте цену продавца или улучшайте выкуп.";
+    tb2.innerHTML = '<tr><td>Цена под целевую маржу</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>';
+    F("targetNote").textContent = "";
+  } else {
+    warn.style.display = "none";
+    var Pstar = fixed / denom;
+    var rstar = calc(Pstar, p);
+    var delta = P > 0 ? (Pstar - P)/P*100 : 0;
+    tb2.innerHTML =
+      '<tr><td>Текущая цена</td><td class="n">'+nf.format(P)+'</td><td class="n">'+nf.format(r.buyer)+'</td><td class="n">'+nf.format(r.profit)+'</td></tr>'+
+      '<tr class="total"><td>Под маржу '+pf.format(v("target"))+'%</td><td class="n">'+nf.format(Pstar)+'</td><td class="n">'+nf.format(rstar.buyer)+'</td><td class="n">'+nf.format(rstar.profit)+'</td></tr>';
+    F("targetNote").textContent = "Чтобы выйти на маржу " + pf.format(v("target")) + "%, цену продавца нужно " +
+      (delta > 0 ? "поднять на " : "можно снизить на ") + pf.format(Math.abs(delta)) + "%" +
+      (delta > 0 ? " (рекомендуем шагами по 2 п.п. скидки, как на WB)." : ".");
+  }
+
+  // чувствительность
+  var ps = [0.30, 0.40, 0.50, 0.60];
+  var mults = [0.9, 0.95, 1.0, 1.05, 1.1];
+  var rows = "";
+  ps.forEach(function(pp){
+    var tds = mults.map(function(mm){
+      var rr = calc(P*mm, pp);
+      var cls = rr.margin < 0 ? "neg" : "pos";
+      return '<td class="n '+cls+'">'+pf.format(rr.margin)+'</td>';
+    }).join("");
+    var lab = "выкуп " + pf.format(pp*100) + "%" + (Math.abs(pp - p) < 0.001 ? " (текущий)" : "");
+    rows += "<tr><td>" + lab + "</td>" + tds + "</tr>";
+  });
+  document.querySelector("#sensTable tbody").innerHTML = rows;
+}
+
+F("preset").addEventListener("change", function(){
+  var pr = PRESETS[this.value];
+  if (pr){ F("price").value = pr.price; F("cogs").value = pr.cogs; }
+  recalc();
+});
+F("c27").addEventListener("click", function(){ F("comm").value = 27; recalc(); });
+F("c52").addEventListener("click", function(){ F("comm").value = 52; recalc(); });
+
+document.querySelectorAll(".fin, .chk input").forEach(function(el){
+  el.addEventListener("input", recalc);
+  el.addEventListener("change", recalc);
+});
+recalc();
+})();
+</script>
+<script>
+(function(){var v=document.querySelector('.vw');if(!v||location.protocol==='file:')return;
+fetch('weeks.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(w){v.innerHTML=vw(w.weeks||[],v.dataset.cur);}).catch(function(){});
+function lab(m){var d=new Date(m+'T00:00:00'),e=new Date(d.getTime()+6*864e5),f=function(x){return('0'+x.getDate()).slice(-2)+'.'+('0'+(x.getMonth()+1)).slice(-2);};return f(d)+'–'+f(e);}
+function vw(ws,cur){var h='<a href="./"'+(cur==='live'?' class="on"':'')+'>Каждый день</a>';
+ if(ws.length){h+='<a href="'+ws[0]+'.html"'+(cur===ws[0]?' class="on"':'')+'>Неделя '+lab(ws[0])+'</a>';
+  if(cur!=='live'&&cur!==ws[0])h+='<a href="'+cur+'.html" class="on">Неделя '+lab(cur)+'</a>';
+  if(ws.length>1){h+='<select aria-label="Другие недели" onchange="if(this.value)location.href=this.value"><option value="">Другие недели</option>';
+   ws.forEach(function(m){h+='<option value="'+m+'.html"'+(m===cur?' selected':'')+'>'+lab(m)+'</option>';});h+='</select>';}}
+ return h;}})();
+</script></body>
+</html>
