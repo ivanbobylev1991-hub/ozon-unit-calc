@@ -486,7 +486,7 @@ function wRecalc(){
     row("Эквайринг", -r.acquiring, r.price ? -r.acquiring/r.price*100 : null) +
     row("Логистика туда (на 1 продажу)", -r.fwd, r.price ? -r.fwd/r.price*100 : null) +
     row("· надбавки (ИРП / скорость)", -r.pctAdd, r.price ? -r.pctAdd/r.price*100 : null, "sub") +
-    row("Невыкупы: возврат и обработка", -(r.logPer - r.L), r.price ? -(r.logPer-r.L)/r.price*100 : null) +
+    row("Невыкупы: возврат и обработка", -(r.logPer - r.fwd - r.pctAdd), r.price ? -(r.logPer-r.fwd-r.pctAdd)/r.price*100 : null) +
     row("Реклама", -r.adRUB, r.price ? -r.adRUB/r.price*100 : null) +
     row("Налоги (УСН + НДС)", -r.tax, r.price ? -r.tax/r.price*100 : null) +
     row("Себестоимость", -r.S, r.price ? -r.S/r.price*100 : null) +
