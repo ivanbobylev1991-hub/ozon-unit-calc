@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Калькулятор юнит-экономики Ozon · Piro</title>
+<title>Калькулятор юнит-экономики маркетплейсов · Ozon · Wildberries</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -31,9 +31,9 @@ h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,6vw,56px);lin
 .meta{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13.5px;color:var(--sky)}
 .meta b{color:var(--on-navy);font-weight:600}
 
-.wrap{max-width:72rem;margin:0 auto;padding-block:30px 80px;display:flex;flex-direction:column;gap:54px}
+.wrap{max-width:72rem;margin:0 auto;padding-block:30px 80px;display:flex;flex-direction:column;gap:40px}
 section{display:flex;flex-direction:column;min-width:0}
-h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,38px);line-height:1.1;margin:0 0 18px;color:var(--navy);text-wrap:balance}
+h2{font-family:var(--display);font-weight:600;font-size:clamp(26px,4vw,34px);line-height:1.1;margin:0 0 18px;color:var(--navy);text-wrap:balance}
 h2::after{content:"";display:block;height:5px;margin-top:12px;background:linear-gradient(90deg,var(--skylight) 0 calc(100% - min(290px,35%)),var(--sky) calc(100% - min(290px,35%)) 100%)}
 h3{font-family:var(--display);font-weight:600;font-size:clamp(21px,3vw,25px);line-height:1.18;color:var(--navy);margin:26px 0 10px}
 p{margin:0 0 12px;max-width:60rem}
@@ -43,12 +43,17 @@ strong{font-weight:600}
 .summary{border-left:3px solid var(--gold);background:var(--card);padding:20px 24px;border-radius:0 3px 3px 0;max-width:60rem;font-size:16.5px}
 .summary>p:last-child{margin-bottom:0}
 
+/* вкладки маркетплейсов */
+.tabs{display:inline-flex;align-items:stretch;border:1px solid var(--navy);border-radius:3px;overflow:hidden;background:#fff;margin-bottom:26px}
+.tabs button{font:inherit;font-size:14px;font-weight:600;padding:9px 26px;border:0;background:#fff;color:var(--navy);cursor:pointer}
+.tabs button+button{border-left:1px solid var(--navy)}
+.tabs button.on{background:var(--navy);color:#fff}
+
 /* ------- калькулятор ------- */
 .calc{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:28px;align-items:start}
 @media screen and (max-width:900px){.calc{grid-template-columns:1fr}}
 .panel{border:1px solid var(--border);border-radius:4px;background:var(--paper)}
 .panel .ph{background:var(--navy);color:var(--on-navy);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:10px 16px;border-radius:3px 3px 0 0}
-.panel .pb{padding:16px}
 .grp{padding:14px 16px;border-bottom:1px solid var(--border)}
 .grp:last-child{border-bottom:none}
 .grp h4{margin:0 0 10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:600}
@@ -58,10 +63,12 @@ strong{font-weight:600}
 .frow label small{display:block;color:var(--muted);font-size:11.5px;line-height:1.35}
 .fin{width:110px;flex:none;text-align:right;font:inherit;font-size:14px;padding:5px 8px;border:1px solid var(--border);border-radius:3px;color:var(--ink);font-variant-numeric:tabular-nums}
 .fin:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.fin:disabled{background:var(--card);color:var(--muted)}
 select.fin{width:auto;text-align:left}
 .chips{display:flex;gap:6px;margin:-2px 0 10px;flex-wrap:wrap}
 .chip-btn{font:inherit;font-size:12px;font-weight:600;padding:3px 10px;border:1px solid var(--border);border-radius:99px;background:var(--card);color:var(--blue);cursor:pointer}
 .chip-btn:hover{border-color:var(--blue)}
+.chip-btn.on{border-color:var(--navy);background:var(--navy);color:#fff}
 .chk{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink2)}
 input[type=checkbox]{accent-color:var(--navy);width:16px;height:16px}
 
@@ -83,10 +90,8 @@ tr.sub td{color:var(--ink2);font-size:13px}
 .pos{color:var(--green);font-weight:600}.neg{color:var(--red);font-weight:600}
 
 .warn{border-left:3px solid var(--red);background:#FBF1EF;padding:12px 16px;border-radius:0 3px 3px 0;font-size:13.5px;color:var(--red);max-width:60rem}
-.callout{border-left:3px solid var(--gold);background:var(--card);padding:16px 20px;border-radius:0 3px 3px 0;max-width:60rem;margin:6px 0 14px}
+.callout{border-left:3px solid var(--gold);background:var(--card);padding:14px 18px;border-radius:0 3px 3px 0;max-width:60rem;margin:6px 0 14px;font-size:14px}
 .callout>:last-child{margin-bottom:0}
-ul.plain{padding-left:1.1rem;display:flex;flex-direction:column;gap:8px;margin:0 0 12px}
-ul.plain li::marker{color:var(--gold)}
 
 footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-size:12.5px;color:var(--muted);max-width:60rem}
 @media print{.band .inner{padding-block:18px 20px}.wrap{gap:24px}}
@@ -104,31 +109,30 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
 <body>
 
 <header class="band"><div class="inner gut">
-  <div class="eyebrow">Piro · Ozon · инструмент</div>
-  <h1>Калькулятор юнит-экономики Ozon</h1>
-  <p class="lead">Считаем цену продавца под целевую маржинальность и проверяем маржу при текущей цене.
-  Всё — на одну выкупленную единицу, по фактической модели кабинета Piro.</p>
-  <div class="meta">
-    <span>Модель: <b>на 1 выкуп</b></span>
-    <span>Комиссия: <b>от цены продавца</b></span>
-    <span>Эквайринг и налоги: <b>от оплаты покупателя</b></span>
-    <span>Данные: <b>Piro, 03.10–01.11.2026</b></span>
-  </div>
+  <div class="eyebrow">Ozon · Wildberries · инструмент</div>
+  <h1>Калькулятор юнит-экономики маркетплейсов</h1>
+  <p class="lead">Считаем цену под целевую маржинальность и проверяем маржу при текущей цене.
+  Всё — на одну проданную единицу, с учётом выкупа: логистику туда платим по каждому заказу, обратно — по каждому невыкупу.</p>
 </div></header>
 
 <main class="wrap gut">
 
 <section>
+  <div class="tabs" role="tablist">
+    <button id="tabOzon" class="on" type="button">Ozon</button>
+    <button id="tabWb" type="button">Wildberries</button>
+  </div>
+
+  <!-- ============================ OZON ============================ -->
+  <div class="pane" id="paneOzon">
   <div class="summary">
     <p><strong>Как читать.</strong> Покупатель на Ozon платит только часть цены — остальное Ozon покрывает скидкой
     (бывшие баллы). Комиссию Ozon при этом берёт с <strong>полной цены продавца</strong>, а эквайринг и налоги — только с того,
     что заплатил покупатель. Поэтому калькулятор считает от цены продавца, а «скидку Ozon» задаёт отдельным полем —
     это главный рычаг, за которым надо следить после старта оферты 27% (с 27.10.2026).</p>
   </div>
-</section>
 
-<section>
-  <h2>Калькулятор</h2>
+  <h2 style="margin-top:26px">Ozon</h2>
   <div class="calc">
     <div class="panel">
       <div class="ph">Входные данные</div>
@@ -208,86 +212,93 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
       +15–20 п.п. маржи, потому что логистика невыкупов — вторая после комиссии статья расходов.</p>
     </div>
   </div>
-</section>
-
-<section>
-  <h2>Сверка с фактом Piro</h2>
-  <p>Та же формула, подставленная фактические параметры каждой модели за 30 дней (03.10–01.11.2026, начисления Ozon
-  по API: цены продавца, комиссия, эквайринг, логистика, невыкупы, реклама; налоги — как в WILD CRM; себестоимость —
-  финальная партия 10.10.2026). Модель сходится с фактом в пределах ~1–2 п.п., по моделям с большой выборкой выкупов —
-  до ±0,5 п.п.:</p>
-  <div class="tbl"><table>
-    <thead><tr><th>Модель</th><th class="n">Выкупов</th><th class="n">Маржа факт, %</th><th class="n">Маржа модель, %</th><th class="n">Δ, п.п.</th><th class="n">Маржа при комиссии 27%*, %</th></tr></thead>
-    <tbody>
-      <tr><td>M-001 · свитер</td><td class="n">7</td><td class="n neg">−15,5</td><td class="n neg">−15,5</td><td class="n">0,0</td><td class="n">9,5</td></tr>
-      <tr><td>M-002 · поло вязка</td><td class="n">19</td><td class="n neg">−3,4</td><td class="n neg">−5,0</td><td class="n">−1,6</td><td class="n">21,6</td></tr>
-      <tr><td>M-003 · поло вязка</td><td class="n">10</td><td class="n neg">−3,4</td><td class="n neg">−4,1</td><td class="n">−0,8</td><td class="n">21,6</td></tr>
-      <tr><td>M-004 · поло вязка</td><td class="n">32</td><td class="n">17,9</td><td class="n">17,8</td><td class="n">−0,1</td><td class="n">42,0</td></tr>
-      <tr><td>M-005 · свитер</td><td class="n">12</td><td class="n neg">−6,6</td><td class="n neg">−6,6</td><td class="n">0,0</td><td class="n">18,4</td></tr>
-      <tr><td>M-006 · свитер</td><td class="n">7</td><td class="n">4,8</td><td class="n">5,5</td><td class="n">+0,7</td><td class="n">29,8</td></tr>
-      <tr><td>M-007 · поло вязка</td><td class="n">70</td><td class="n">5,0</td><td class="n">4,5</td><td class="n">−0,5</td><td class="n">29,0</td></tr>
-    </tbody>
-  </table></div>
-  <p class="note">* Расчётно: тот же период, но комиссия 27% (оферта действует с 27.10.2026) вместо фактических 52%.
-  Показывает потенциал оферты, <strong>но</strong>: Ozon уже начал сжимать скидку (доля покупателя выросла с ~31% до 35–40%
-  у части моделей) — реальная маржа будет между колонками. За ней следим еженедельно в отчёте по кабинету.
-  Разброс факт–модель — малые выборки, кластерный микс логистики и реклама по дате списания.</p>
-  <p class="note">Факт проверен двумя независимыми источниками: наш ежедневный сбор начислений Ozon (сверен с отчётом
-  кабинета до рубля) и Nepsell (расхождение по прибыли моделей за 19–25.10 — не более ~1 тыс. ₽, источник — комиссия
-  и распределение рекламы).</p>
-</section>
-
-<section>
-  <h2>Методика</h2>
-  <h3>Формулы</h3>
-  <div class="callout">
-    <p style="font-family:var(--mono);font-size:13.5px;margin-bottom:8px">Логистика на 1 выкуп = L + (1 − выкуп) ÷ выкуп × R</p>
-    <p style="font-family:var(--mono);font-size:13.5px;margin-bottom:8px">Прибыль = ПЦТ × (1 − комиссия − прочие − ДРР) − ПЦТ × доля_покупателя × (эквайринг + налог) − Логистика − Себестоимость</p>
-    <p style="font-family:var(--mono);font-size:13.5px;margin-bottom:0">Цена под маржу = (Себестоимость + Логистика) ÷ (1 − комиссия − прочие − ДРР − доля_покупателя × (эквайринг + налог) − маржа)</p>
   </div>
-  <ul class="plain">
-    <li><strong>Комиссия и прочие услуги — от цены продавца</strong> (полной, с неё их и удерживает Ozon).</li>
-    <li><strong>Эквайринг и налоги — от оплаты покупателя</strong> (цена на сайте). Эквайринг так и берёт Ozon:
-    факт Piro 1,68% от оплаты покупателя (≈0,5% от цены продавца). Налог при УСН 6% + НДС 5% = 11/105 ≈ 10,5%
-    от оплаты покупателя; доплата Ozon налогом не облагается (решение 25.10.2026, так же считают WILD CRM и Nepsell).</li>
-    <li><strong>Логистика считается через выкуп</strong>: мы платим доставку до ПВЗ по каждому отправлению, а обратку
-    и обработку — по каждому невыкупу. На 1 выкуп при выкупе 40% это L + 1,5 × R.</li>
-    <li><strong>Маржинальность — от цены продавца</strong> (прибыль ÷ продажи по цене продавца) — так считают маржу
-    WILD CRM на WB и рентабельность Nepsell.</li>
-    <li><strong>Реклама — ДРР, % от цены продавца</strong>. У Piro основная ставка — оплата за заказ (5% от цены),
-    поэтому рекламный расход растёт вместе с ценой.</li>
-  </ul>
-  <h3>Чем отличается от типовых калькуляторов (и от присланной Google-таблицы)</h3>
-  <ul class="plain">
-    <li><strong>Логистика не зануляется.</strong> В примере-образце итоговая логистика = 0, потому что не заполнен % выкупа —
-    прибыль завышена на 200–400 ₽ с единицы. Здесь выкуп — обязательное поле.</li>
-    <li><strong>Эквайринг — от оплаты покупателя</strong>, как его реально берёт Ozon (факт Piro 1,68%), а не 2% от цены
-    продавца, как в примере (там он завышен вчетверо).</li>
-    <li><strong>Невыкуп — полный круг</strong> (обратная логистика + обработка партнёрами, по факту 185–222 ₽), а не только обратный тариф.</li>
-    <li><strong>Маржа от цены продавца</strong>, а не от цены на сайте: в примере знаменатель в ~2 раза меньше, и маржа
-    «35%» на деле означает ~17% от цены продавца.</li>
-    <li><strong>Реклама включена</strong> (ДРР, % от цены продавца) — у Piro фактически 8,5–41% в зависимости от модели;
-    без неё картина маржи нереалистична.</li>
-  </ul>
-  <h3>Что меняется с 01.12.2026</h3>
-  <p>Ozon отменяет баллы за скидки: скидку будут вычитать из вознаграждения по каждой продаже
-  (вознаграждение = max(ПЦТ × ставка × 1%; ПЦТ × (ставка − поправка − доля скидки Ozon)), излишек — уменьшением
-  других услуг, остаток — деньгами по Акту о выплате). По деньгам продавцу должно остаться столько же, поэтому
-  формула калькулятора не меняется, но после первых декабрьских начислений мы сверим факт с моделью и при
-  расхождении поправим поле «комиссия» (у Piro при скидке 65%+ и ставке 52% строка «Вознаграждение Ozon»
-  в кабинете упадёт почти до нуля — это ожидаемо, а не ошибка).</p>
-  <h3>Ограничения</h3>
-  <ul class="plain">
-    <li>Плановый ориентир, не учитывает хранение FBO (у Piro в начислениях его нет), брак и возвраты после выкупа
-    (в «прочих услугах» по факту ~0,5%).</li>
-    <li>Товар из невыкупа считается годным к повторной продаже.</li>
-    <li>Логистика — средняя по кластерам; для товара до 300 ₽ тарифы ниже — поле можно поставить вручную.</li>
-  </ul>
+
+  <!-- ============================ WILDBERRIES ============================ -->
+  <div class="pane" id="paneWb" style="display:none">
+  <div class="summary">
+    <p><strong>Как читать.</strong> На Wildberries все проценты (комиссия, эквайринг, реклама, налоги, маржа) —
+    доли от <strong>цены после скидки продавца</strong>. Базовая цена до скидок обычно фиксирована, поэтому обратный расчёт
+    даёт не цену, а <strong>скидку</strong>: ставим скидку, при которой маржа не падает ниже целевой. Скидку округляем
+    вниз до целого процента — так маржа получается не ниже целевой.</p>
+  </div>
+
+  <h2 style="margin-top:26px">Wildberries</h2>
+  <div class="calc">
+    <div class="panel">
+      <div class="ph">Входные данные</div>
+      <div class="grp">
+        <h4>Товар</h4>
+        <div class="frow"><label>Базовая цена до скидок, ₽</label><input class="fin wb" type="number" id="wBase" value="4000" min="0" step="10"></div>
+        <div class="frow"><label>Скидка продавца сейчас, %</label><input class="fin wb" type="number" id="wDisc" value="55" min="0" max="95" step="0.5"></div>
+      </div>
+      <div class="grp">
+        <h4>Условия Wildberries</h4>
+        <div class="chips">
+          <button class="chip-btn on" id="wFbs" type="button">FBS — свой склад</button>
+          <button class="chip-btn" id="wFbo" type="button">FBO (FBW) — склад WB</button>
+        </div>
+        <div class="frow"><label>Комиссия WB, % от цены после скидки<small>брюки/джинсы/кофты: FBS 48%, FBO 43,5%</small></label><input class="fin wb" type="number" id="wComm" value="48" min="0" max="100" step="0.1"></div>
+        <div class="frow"><label>Эквайринг, %</label><input class="fin wb" type="number" id="wAcq" value="2" min="0" step="0.1"></div>
+        <div class="frow"><label>Объём товара, л<small>базовый тариф считается по диапазону: до 1 л — 23–32 ₽, свыше 1 л — 46 ₽ + 14 ₽/литр</small></label><input class="fin wb" type="number" id="wVol" value="1.2" min="0.05" step="0.05"></div>
+        <div class="frow"><label>Коэффициент склада, %<small>от склада привязки; пример: Электросталь 165%</small></label><input class="fin wb" type="number" id="wWh" value="165" min="10" max="400" step="5"></div>
+        <div class="frow"><label>КТР (индекс локализации, FBO)<small>диапазон 0,5–2; у FBS не участвует</small></label><input class="fin wb" type="number" id="wKtr" value="1.2" min="0.5" max="2" step="0.05"></div>
+        <div class="frow"><label>ИРП, % от цены (FBO)<small>индекс распределения продаж, с 23.03.2026; у FBS = 0</small></label><input class="fin wb" type="number" id="wIrp" value="2" min="0" max="20" step="0.5"></div>
+        <div class="frow"><label>Надбавка за скорость отгрузки, % от цены (FBS)<small>0% при отгрузке до 15 ч; дальше +1,5% за час</small></label><input class="fin wb" type="number" id="wSpeed" value="0" min="0" max="60" step="0.5"></div>
+        <div class="frow"><label>Возврат (невыкуп) целиком, ₽<small>авто: логистика туда без процентных надбавок; поправьте по своей детализации</small></label><input class="fin wb" type="number" id="wRet" value="" min="0" step="1"></div>
+        <div class="frow"><label>Выкуп, %<small>доля выкупленных из решённых заказов</small></label><input class="fin wb" type="number" id="wBuyout" value="50" min="1" max="100" step="0.5"></div>
+      </div>
+      <div class="grp">
+        <h4>Наши расходы</h4>
+        <div class="frow"><label>Себестоимость, ₽</label><input class="fin wb" type="number" id="wCogs" value="600" min="0" step="1"></div>
+        <div class="frow"><label>Реклама, % от цены после скидки</label><input class="fin wb" type="number" id="wAd" value="5" min="0" max="100" step="0.5"></div>
+        <div class="frow"><label>УСН, %</label><input class="fin wb" type="number" id="wUsn" value="6" min="0" max="50" step="0.5"></div>
+        <div class="frow"><label>НДС, %</label><input class="fin wb" type="number" id="wVat" value="5" min="0" max="25" step="0.5"></div>
+        <div class="chk"><input type="checkbox" id="wTaxon" checked><label for="wTaxon">учитывать налоги (упрощённо: УСН + НДС от цены)</label></div>
+      </div>
+      <div class="grp">
+        <h4>Цель</h4>
+        <div class="frow"><label>Целевая маржинальность, %<small>от цены после скидки</small></label><input class="fin wb" type="number" id="wTarget" value="5" min="0" max="90" step="0.5"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="kpis">
+        <div class="kpi" id="wkProfit"><div class="lb">Прибыль на 1 продажу</div><div class="v"><span id="wvProfit">—</span> <small>₽</small></div></div>
+        <div class="kpi" id="wkMargin"><div class="lb">Маржинальность</div><div class="v"><span id="wvMargin">—</span> <small>%</small></div></div>
+        <div class="kpi" id="wkRoi"><div class="lb">ROI (прибыль/себест.)</div><div class="v"><span id="wvRoi">—</span> <small>%</small></div></div>
+        <div class="kpi"><div class="lb">Цена после скидки</div><div class="v"><span id="wvPrice">—</span> <small>₽</small></div></div>
+      </div>
+
+      <h3>На 1 продажу при текущей скидке</h3>
+      <div class="tbl"><table id="wUnitTable">
+        <thead><tr><th>Статья</th><th class="n">₽</th><th class="n">% от цены</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+
+      <h3>Скидка под целевую маржу</h3>
+      <div class="tbl"><table id="wTargetTable">
+        <thead><tr><th></th><th class="n">Скидка</th><th class="n">Цена после скидки</th><th class="n">Прибыль на продажу</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <div class="warn" id="wWarn" style="display:none"></div>
+      <p class="note" id="wTargetNote"></p>
+
+      <h3>Чувствительность маржи</h3>
+      <div class="tbl"><table id="wSensTable">
+        <thead><tr><th>Выкуп \ скидка продавца</th><th class="n">−5 п.п.</th><th class="n">−2,5 п.п.</th><th class="n">текущая</th><th class="n">+2,5 п.п.</th><th class="n">+5 п.п.</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <p class="note">На Wildberries маржу сильнее всего двигает связка «скидка × выкуп»: скидка влияет на все процентные
+      расходы сразу, а выкуп — на логистику невыкупов.</p>
+    </div>
+  </div>
+  </div>
 </section>
 
 <footer>
-  Калькулятор построен на фактических начислениях кабинета Piro (Seller API, ежедневный сбор с 17.10.2026) и сверен
-  с WILD CRM и Nepsell. Обновление параметров — по мере изменения тарифов Ozon. Вопросы и правки — Ивану.
+  Калькуляторы построены на фактических данных кабинетов (ежедневный сбор по API) и проверены сверкой с сервисами
+  оцифровки. Тарифы маркетплейсов меняются — перед крупными решениями сверяйте расчёт со своей детализацией.
 </footer>
 
 </main>
@@ -299,6 +310,24 @@ var F = function(id){ return document.getElementById(id); };
 var nf = new Intl.NumberFormat("ru-RU",{maximumFractionDigits:0});
 var pf = new Intl.NumberFormat("ru-RU",{maximumFractionDigits:1,minimumFractionDigits:0});
 
+/* ---------------- вкладки ---------------- */
+F("tabOzon").addEventListener("click", function(){ showTab(true); });
+F("tabWb").addEventListener("click", function(){ showTab(false); });
+function showTab(ozon){
+  F("paneOzon").style.display = ozon ? "" : "none";
+  F("paneWb").style.display = ozon ? "none" : "";
+  F("tabOzon").className = ozon ? "on" : "";
+  F("tabWb").className = ozon ? "" : "on";
+  window.scrollTo({top:0});
+}
+
+function v(id){ var x = parseFloat(F(id).value); return isFinite(x) ? x : 0; }
+function row(label, val, pct, cls){
+  return '<tr class="'+(cls||'')+'"><td>'+label+'</td><td class="n">'+(val==null?"—":nf.format(val))+
+         '</td><td class="n">'+(pct==null?"—":pf.format(pct))+'</td></tr>';
+}
+
+/* ================= OZON ================= */
 var PRESETS = {
   "M-001": {price:8900, cogs:1136},
   "M-002": {price:4200, cogs:1043},
@@ -309,9 +338,7 @@ var PRESETS = {
   "M-007": {price:6049, cogs:1136}
 };
 
-function v(id){ var x = parseFloat(F(id).value); return isFinite(x) ? x : 0; }
-
-function calc(P, p){
+function ozCalc(P, p){
   var comm = v("comm")/100, acq = v("acq")/100, other = v("other")/100, adPct = v("ad")/100;
   var d = v("disc")/100;
   var L = v("logf"), R = v("logr"), S = v("cogs");
@@ -328,15 +355,10 @@ function calc(P, p){
           payout:P - commission - acquiring - L};
 }
 
-function row(label, val, pct, cls){
-  return '<tr class="'+(cls||'')+'"><td>'+label+'</td><td class="n">'+(val==null?"—":nf.format(val))+
-         '</td><td class="n">'+(pct==null?"—":pf.format(pct))+'</td></tr>';
-}
-
-function recalc(){
+function ozRecalc(){
   var P = v("price"), p = v("buyout")/100;
   if (p <= 0) p = 0.01;
-  var r = calc(P, p);
+  var r = ozCalc(P, p);
 
   F("vProfit").textContent = nf.format(r.profit);
   F("vMargin").textContent = pf.format(r.margin);
@@ -345,8 +367,7 @@ function recalc(){
   F("kProfit").className = "kpi " + (r.profit < 0 ? "bad" : "good");
   F("kMargin").className = "kpi " + (r.margin < 0 ? "bad" : "good");
 
-  var tbody = document.querySelector("#unitTable tbody");
-  tbody.innerHTML =
+  document.querySelector("#unitTable tbody").innerHTML =
     row("Цена продавца (ПЦТ)", r.P, 100) +
     row("· платит покупатель (цена на сайте)", r.buyer, r.P ? r.buyer/r.P*100 : null, "sub") +
     row("· доплачивает Ozon (скидка)", r.P - r.buyer, r.P ? (r.P-r.buyer)/r.P*100 : null, "sub") +
@@ -360,7 +381,6 @@ function recalc(){
     row("Себестоимость", -r.S, r.P ? -r.S/r.P*100 : null) +
     row("Прибыль на 1 выкуп", r.profit, r.margin, "total");
 
-  // цена под целевую маржу
   var m = v("target")/100;
   var comm = v("comm")/100, acq = v("acq")/100, other = v("other")/100, adPct = v("ad")/100;
   var t = F("taxon").checked ? (v("usn") + v("vat")) / (100 + v("vat")) : 0;
@@ -376,7 +396,7 @@ function recalc(){
   } else {
     warn.style.display = "none";
     var Pstar = fixed / denom;
-    var rstar = calc(Pstar, p);
+    var rstar = ozCalc(Pstar, p);
     var delta = P > 0 ? (Pstar - P)/P*100 : 0;
     tb2.innerHTML =
       '<tr><td>Текущая цена</td><td class="n">'+nf.format(P)+'</td><td class="n">'+nf.format(r.buyer)+'</td><td class="n">'+nf.format(r.profit)+'</td></tr>'+
@@ -386,18 +406,15 @@ function recalc(){
       : "При цене продавца на " + pf.format(Math.abs(delta)) + "% ниже текущей маржа составит целевые " + pf.format(v("target")) + "%.";
   }
 
-  // чувствительность
   var ps = [0.30, 0.40, 0.50, 0.60];
   var mults = [0.9, 0.95, 1.0, 1.05, 1.1];
   var rows = "";
   ps.forEach(function(pp){
     var tds = mults.map(function(mm){
-      var rr = calc(P*mm, pp);
-      var cls = rr.margin < 0 ? "neg" : "pos";
-      return '<td class="n '+cls+'">'+pf.format(rr.margin)+'</td>';
+      var rr = ozCalc(P*mm, pp);
+      return '<td class="n '+(rr.margin < 0 ? "neg" : "pos")+'">'+pf.format(rr.margin)+'</td>';
     }).join("");
-    var lab = "выкуп " + pf.format(pp*100) + "%" + (Math.abs(pp - p) < 0.001 ? " (текущий)" : "");
-    rows += "<tr><td>" + lab + "</td>" + tds + "</tr>";
+    rows += "<tr><td>выкуп " + pf.format(pp*100) + "%" + (Math.abs(pp - p) < 0.001 ? " (текущий)" : "") + "</td>" + tds + "</tr>";
   });
   document.querySelector("#sensTable tbody").innerHTML = rows;
 }
@@ -405,16 +422,160 @@ function recalc(){
 F("preset").addEventListener("change", function(){
   var pr = PRESETS[this.value];
   if (pr){ F("price").value = pr.price; F("cogs").value = pr.cogs; }
-  recalc();
+  ozRecalc();
 });
-F("c27").addEventListener("click", function(){ F("comm").value = 27; recalc(); });
-F("c52").addEventListener("click", function(){ F("comm").value = 52; recalc(); });
+F("c27").addEventListener("click", function(){ F("comm").value = 27; ozRecalc(); });
+F("c52").addEventListener("click", function(){ F("comm").value = 52; ozRecalc(); });
+
+/* ================= WILDBERRIES ================= */
+var wScheme = "fbs";
+
+function wTariff(vol){
+  if (vol <= 0.2) return 23;
+  if (vol <= 0.4) return 26;
+  if (vol <= 0.6) return 29;
+  if (vol <= 0.8) return 30;
+  if (vol <= 1.0) return 32;
+  return 46 + 14 * (vol - 1);
+}
+
+function wCalc(discPct, p){
+  var base = v("wBase");
+  var price = base * (1 - discPct/100);
+  var k = (v("wComm") + v("wAcq"))/100;
+  var r = v("wAd")/100;
+  var t = F("wTaxon").checked ? (v("wUsn") + v("wVat"))/100 : 0;
+  var tariff = wTariff(v("wVol"));
+  var wh = v("wWh")/100;
+  var fwd = tariff * (wScheme === "fbo" ? v("wKtr") * wh : wh);
+  var pctAdd = price * (wScheme === "fbo" ? v("wIrp")/100 : v("wSpeed")/100);
+  var L = fwd + pctAdd;
+  var R = F("wRet").value === "" ? fwd : v("wRet");
+  var logPer = L + (1 - p)/p * R;
+  var S = v("wCogs");
+  var profit = price * (1 - k - r - t) - logPer - S;
+  return {base:base, price:price, tariff:tariff, fwd:fwd, pctAdd:pctAdd, logPer:logPer, R:R,
+          commission:price*v("wComm")/100, acquiring:price*v("wAcq")/100, adRUB:price*r,
+          tax:price*t, S:S, profit:profit, margin:price>0 ? profit/price*100 : 0,
+          roi:S>0 ? profit/S*100 : 0};
+}
+
+function wAutoRet(){
+  var tariff = wTariff(v("wVol"));
+  var wh = v("wWh")/100;
+  var fwd = tariff * (wScheme === "fbo" ? v("wKtr") * wh : wh);
+  F("wRet").value = Math.round(fwd);
+}
+
+function wRecalc(){
+  var disc = v("wDisc"), p = v("wBuyout")/100;
+  if (p <= 0) p = 0.01;
+  var r = wCalc(disc, p);
+
+  F("wvProfit").textContent = nf.format(r.profit);
+  F("wvMargin").textContent = pf.format(r.margin);
+  F("wvRoi").textContent = pf.format(r.roi);
+  F("wvPrice").textContent = nf.format(r.price);
+  F("wkProfit").className = "kpi " + (r.profit < 0 ? "bad" : "good");
+  F("wkMargin").className = "kpi " + (r.margin < 0 ? "bad" : "good");
+
+  document.querySelector("#wUnitTable tbody").innerHTML =
+    row("Цена после скидки", r.price, 100) +
+    row("· базовая до скидок", r.base, r.price ? r.base/r.price*100 : null, "sub") +
+    row("Комиссия WB", -r.commission, r.price ? -r.commission/r.price*100 : null) +
+    row("Эквайринг", -r.acquiring, r.price ? -r.acquiring/r.price*100 : null) +
+    row("Логистика туда (на 1 продажу)", -r.fwd, r.price ? -r.fwd/r.price*100 : null) +
+    row("· надбавки (ИРП / скорость)", -r.pctAdd, r.price ? -r.pctAdd/r.price*100 : null, "sub") +
+    row("Невыкупы: возврат и обработка", -(r.logPer - r.L), r.price ? -(r.logPer-r.L)/r.price*100 : null) +
+    row("Реклама", -r.adRUB, r.price ? -r.adRUB/r.price*100 : null) +
+    row("Налоги (УСН + НДС)", -r.tax, r.price ? -r.tax/r.price*100 : null) +
+    row("Себестоимость", -r.S, r.price ? -r.S/r.price*100 : null) +
+    row("Прибыль на 1 продажу", r.profit, r.margin, "total");
+
+  // скидка под целевую маржу
+  var m = v("wTarget")/100;
+  var k = (v("wComm") + v("wAcq"))/100, rr = v("wAd")/100;
+  var t = F("wTaxon").checked ? (v("wUsn") + v("wVat"))/100 : 0;
+  var fixed = r.logPer + r.S;
+  var denom = 1 - k - rr - t - m;
+  var warn = F("wWarn");
+  var tb2 = document.querySelector("#wTargetTable tbody");
+  if (denom <= 0.001){
+    warn.style.display = "block";
+    warn.textContent = "При таких параметрах целевая маржа недостижима: комиссия + эквайринг + реклама + налоги + маржа ≥ 100% цены.";
+    tb2.innerHTML = '<tr><td>Скидка под целевую маржу</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>';
+    F("wTargetNote").textContent = "";
+  } else {
+    warn.style.display = "none";
+    var priceStar = fixed / denom;
+    var discExact = r.base > 0 ? (1 - priceStar/r.base)*100 : null;
+    var discRec = discExact !== null ? Math.floor(discExact) : null;
+    if (discRec !== null && discRec < 0) discRec = 0;
+    var rstar = wCalc(discRec === null ? 0 : discRec, p);
+    tb2.innerHTML =
+      '<tr><td>Текущая скидка '+pf.format(disc)+'%</td><td class="n">'+pf.format(disc)+'%</td><td class="n">'+nf.format(r.price)+'</td><td class="n">'+nf.format(r.profit)+'</td></tr>'+
+      (discExact !== null
+        ? '<tr class="sub"><td>· точный расчёт без округления</td><td class="n">'+pf.format(discExact)+'%</td><td class="n">'+nf.format(priceStar)+'</td><td class="n"></td></tr>' +
+          '<tr class="total"><td>Под маржу '+pf.format(v("wTarget"))+'% (округлено вниз)</td><td class="n">'+discRec+'%</td><td class="n">'+nf.format(rstar.price)+'</td><td class="n">'+nf.format(rstar.profit)+'</td></tr>'
+        : '<tr><td>Под маржу</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>');
+    if (discExact === null){
+      F("wTargetNote").textContent = "";
+    } else if (discExact < 0){
+      F("wTargetNote").textContent = "Даже без скидки (цена = базовой) маржа ниже целевой — базовую цену нужно поднимать.";
+    } else if (discExact > 90){
+      F("wTargetNote").textContent = "Подозрительно большая скидка ("+pf.format(discExact)+"%) — проверьте параметры.";
+    } else {
+      var d = discRec - disc;
+      F("wTargetNote").textContent = d === 0
+        ? "Текущая скидка уже даёт маржу не ниже целевой."
+        : (d > 0 ? "Скидку нужно увеличить на " + pf.format(d) + " п.п. (до " + discRec + "%)." : "Скидку можно уменьшить на " + pf.format(-d) + " п.п. (до " + discRec + "%) — маржа останется не ниже целевой.");
+    }
+  }
+
+  // чувствительность: выкуп × скидка
+  var ps = [0.40, 0.50, 0.60];
+  var deltas = [-5, -2.5, 0, 2.5, 5];
+  var rows = "";
+  ps.forEach(function(pp){
+    var tds = deltas.map(function(dd){
+      var rr = wCalc(disc + dd, pp);
+      return '<td class="n '+(rr.margin < 0 ? "neg" : "pos")+'">'+pf.format(rr.margin)+'</td>';
+    }).join("");
+    rows += "<tr><td>выкуп " + pf.format(pp*100) + "%" + (Math.abs(pp - p) < 0.001 ? " (текущий)" : "") + "</td>" + tds + "</tr>";
+  });
+  document.querySelector("#wSensTable tbody").innerHTML = rows;
+}
+
+function wSetScheme(s){
+  wScheme = s;
+  F("wFbs").className = "chip-btn" + (s === "fbs" ? " on" : "");
+  F("wFbo").className = "chip-btn" + (s === "fbo" ? " on" : "");
+  F("wComm").value = s === "fbs" ? 48 : 43.5;
+  F("wKtr").disabled = s !== "fbo";
+  F("wIrp").disabled = s !== "fbo";
+  F("wSpeed").disabled = s !== "fbs";
+  wAutoRet();
+  wRecalc();
+}
+F("wFbs").addEventListener("click", function(){ wSetScheme("fbs"); });
+F("wFbo").addEventListener("click", function(){ wSetScheme("fbo"); });
+
+/* возврат автоподставляется, пока пользователь не правил его вручную */
+var wRetTouched = false;
+F("wRet").addEventListener("input", function(){ wRetTouched = true; wRecalc(); });
+F("wVol").addEventListener("input", function(){ if (!wRetTouched) wAutoRet(); });
+F("wWh").addEventListener("input", function(){ if (!wRetTouched) wAutoRet(); });
+F("wKtr").addEventListener("input", function(){ if (!wRetTouched) wAutoRet(); });
 
 document.querySelectorAll(".fin, .chk input").forEach(function(el){
-  el.addEventListener("input", recalc);
-  el.addEventListener("change", recalc);
+  el.addEventListener("input", function(){ ozRecalc(); wRecalc(); });
+  el.addEventListener("change", function(){ ozRecalc(); wRecalc(); });
 });
-recalc();
+
+/* старт */
+wAutoRet();
+wSetScheme("fbs");
+ozRecalc();
 })();
 </script>
 <script>
