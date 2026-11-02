@@ -381,9 +381,9 @@ function recalc(){
     tb2.innerHTML =
       '<tr><td>Текущая цена</td><td class="n">'+nf.format(P)+'</td><td class="n">'+nf.format(r.buyer)+'</td><td class="n">'+nf.format(r.profit)+'</td></tr>'+
       '<tr class="total"><td>Под маржу '+pf.format(v("target"))+'%</td><td class="n">'+nf.format(Pstar)+'</td><td class="n">'+nf.format(rstar.buyer)+'</td><td class="n">'+nf.format(rstar.profit)+'</td></tr>';
-    F("targetNote").textContent = "Чтобы выйти на маржу " + pf.format(v("target")) + "%, цену продавца нужно " +
-      (delta > 0 ? "поднять на " : "можно снизить на ") + pf.format(Math.abs(delta)) + "%" +
-      (delta > 0 ? " (рекомендуем шагами по 2 п.п. скидки, как на WB)." : ".");
+    F("targetNote").textContent = delta > 0
+      ? "Чтобы выйти на маржу " + pf.format(v("target")) + "%, цену продавца нужно поднять на " + pf.format(delta) + "% (рекомендуем шагами по 2 п.п. скидки, как на WB)."
+      : "При цене продавца на " + pf.format(Math.abs(delta)) + "% ниже текущей маржа составит целевые " + pf.format(v("target")) + "%.";
   }
 
   // чувствительность
