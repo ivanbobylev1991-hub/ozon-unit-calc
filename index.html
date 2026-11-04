@@ -226,7 +226,7 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
       <div class="grp">
         <h4>Товар</h4>
         <div class="frow">
-          <label>Модель (пресет Piro, данные с WB)<small>подставит цену продавца, объём, выкуп и себестоимость — факт WB за 30 дней</small></label>
+          <label>Модель (пресет Piro, данные с WB)<small>подставит базовую цену, скидку, объём, выкуп и себестоимость — цены из кабинета 04.11.2026</small></label>
           <select class="fin wb" id="wPreset">
             <option value="">— свои значения —</option>
             <option value="M-001">M-001 · свитер</option>
@@ -452,18 +452,17 @@ F("c52").addEventListener("click", function(){ F("comm").value = 52; ozRecalc();
 /* ================= WILDBERRIES ================= */
 var wScheme = "fbs";
 
-/* факт моделей Piro на WB за 30 дн (до 01.11.2026): цена продавца со скидкой (аналитика WB),
-   выкуп = выкупы ÷ заказы по размерам, объём упаковки — по данным поставщика (поло 2,4 л, свитер 3,2 л),
-   себестоимость — финальная партия 10.10.2026. Базовая цена = цена продавца (скидка WB у Piro
-   задаётся отдельно — если нужен расчёт рекомендуемой скидки, поднимите базу вручную). */
+/* факт моделей Piro на WB: базовые цены и скидки — выгрузка кабинета «Цены и скидки» 04.11.2026,
+   выкуп — выкупы ÷ заказы за 30 дн до 01.11.2026 (аналитика WB), объём упаковки — данные поставщика
+   (поло 2,4 л, свитер 3,2 л), себестоимость — финальная партия 10.10.2026 */
 var WPRESETS = {
-  "M-001": {base:3920, disc:0, vol:3.2, buyout:14.3, cogs:1136},
-  "M-002": {base:4060, disc:0, vol:2.4, buyout:28.7, cogs:1043},
-  "M-003": {base:3290, disc:0, vol:2.4, buyout:10.0, cogs:1043},
-  "M-004": {base:4060, disc:0, vol:2.4, buyout:46.7, cogs:1043},
-  "M-005": {base:3920, disc:0, vol:3.2, buyout:23.1, cogs:1136},
-  "M-006": {base:3920, disc:0, vol:3.2, buyout:27.9, cogs:1062},
-  "M-007": {base:3710, disc:0, vol:2.4, buyout:38.0, cogs:1136}
+  "M-001": {base:8000, disc:51, vol:3.2, buyout:14.3, cogs:1136},
+  "M-002": {base:7000, disc:42, vol:2.4, buyout:28.7, cogs:1043},
+  "M-003": {base:7000, disc:53, vol:2.4, buyout:10.0, cogs:1043},
+  "M-004": {base:7000, disc:42, vol:2.4, buyout:46.7, cogs:1043},
+  "M-005": {base:8000, disc:51, vol:3.2, buyout:23.1, cogs:1136},
+  "M-006": {base:8000, disc:51, vol:3.2, buyout:27.9, cogs:1062},
+  "M-007": {base:7000, disc:47, vol:2.4, buyout:38.0, cogs:1136}
 };
 
 function wTariff(vol){
