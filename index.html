@@ -355,13 +355,13 @@ function row(label, val, pct, cls){
 /* факт моделей Piro за 30 дней (03.10–01.11.2026): цена — средняя по выкупам, скидка Ozon — по оплате
    покупателя, выкуп — решённые заказы, логистика/невыкуп — по начислениям, ДРР — реклама ÷ продажи */
 var PRESETS = {
-  "M-001": {price:8900, disc:66.7, buyout:38.9, logf:139, logr:222, ad:41.2, cogs:1136},
-  "M-002": {price:4200, disc:68.0, buyout:38.5, logf:84,  logr:196, ad:14.3, cogs:1043},
-  "M-003": {price:5180, disc:68.4, buyout:34.6, logf:87,  logr:210, ad:18.8, cogs:1043},
-  "M-004": {price:6816, disc:70.4, buyout:54.4, logf:96,  logr:185, ad:8.5,  cogs:1043},
-  "M-005": {price:7650, disc:67.9, buyout:29.3, logf:109, logr:194, ad:28.2, cogs:1136},
-  "M-006": {price:8500, disc:71.0, buyout:34.8, logf:167, logr:209, ad:19.8, cogs:1062},
-  "M-007": {price:6049, disc:68.9, buyout:45.9, logf:92,  logr:211, ad:16.1, cogs:1136}
+  "M-001": {price:8914, disc:65.9, buyout:33.3, logf:152, logr:205, ad:41.2, cogs:1136},
+  "M-002": {price:4205, disc:62.2, buyout:38.6, logf:85, logr:175, ad:6.3, cogs:1043},
+  "M-003": {price:5180, disc:68.4, buyout:34.6, logf:87, logr:210, ad:18.8, cogs:1043},
+  "M-004": {price:6610, disc:69.4, buyout:51.8, logf:96, logr:202, ad:12.2, cogs:1043},
+  "M-005": {price:7469, disc:66.9, buyout:28.3, logf:109, logr:211, ad:51.5, cogs:1136},
+  "M-006": {price:7900, disc:68.2, buyout:31.8, logf:164, logr:208, ad:19.8, cogs:1062},
+  "M-007": {price:5882, disc:68.3, buyout:46.4, logf:93, logr:213, ad:18.3, cogs:1136}
 };
 
 function ozCalc(P, p){
@@ -464,13 +464,13 @@ var wScheme = "fbs";
    выкуп — выкупы ÷ заказы за 30 дн до 01.11.2026 (аналитика WB),
    себестоимость — финальная партия 10.10.2026 */
 var WPRESETS = {
-  "M-001": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3,  wgt:0.4, buyout:14.3, cogs:1136},
-  "M-002": {base:7000, disc:42, vol:2.4, d:40, s:30, h:2,  wgt:0.3, buyout:28.7, cogs:1043},
-  "M-003": {base:7000, disc:53, vol:2.4, d:40, s:30, h:2,  wgt:0.3, buyout:10.0, cogs:1043},
-  "M-004": {base:7000, disc:42, vol:2.4, d:40, s:30, h:2,  wgt:0.4, buyout:46.7, cogs:1043},
-  "M-005": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3,  wgt:0.5, buyout:23.1, cogs:1136},
-  "M-006": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3,  wgt:0.5, buyout:27.9, cogs:1062},
-  "M-007": {base:7000, disc:47, vol:2.4, d:40, s:30, h:2,  wgt:0.4, buyout:38.0, cogs:1136}
+  "M-001": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3, wgt:0.4, buyout:14.3, cogs:1136},
+  "M-002": {base:7000, disc:42, vol:2.4, d:40, s:30, h:2, wgt:0.3, buyout:31, cogs:1043},
+  "M-003": {base:7000, disc:53, vol:2.4, d:40, s:30, h:2, wgt:0.3, buyout:19, cogs:1043},
+  "M-004": {base:7000, disc:42, vol:2.4, d:40, s:30, h:2, wgt:0.4, buyout:46.8, cogs:1043},
+  "M-005": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3, wgt:0.5, buyout:24, cogs:1136},
+  "M-006": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3, wgt:0.5, buyout:25.3, cogs:1062},
+  "M-007": {base:7000, disc:47, vol:2.4, d:40, s:30, h:2, wgt:0.4, buyout:35.8, cogs:1136}
 };
 
 function wTariff(vol){
