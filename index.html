@@ -293,7 +293,7 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
         <div class="frow"><label>Реклама, % от цены после скидки</label><input class="fin wb" type="number" id="wAd" value="5" min="0" max="100" step="0.5"></div>
         <div class="frow"><label>УСН, %</label><input class="fin wb" type="number" id="wUsn" value="6" min="0" max="50" step="0.5"></div>
         <div class="frow"><label>НДС, %</label><input class="fin wb" type="number" id="wVat" value="5" min="0" max="25" step="0.5"></div>
-        <div class="chk"><input type="checkbox" id="wTaxon" checked><label for="wTaxon">учитывать налоги (упрощённо: УСН + НДС от цены)</label></div>
+        <div class="chk"><input type="checkbox" id="wTaxon" checked><label for="wTaxon">учитывать налоги: НДС = ставка/(100+ставка) от цены, УСН — % от неё же без НДС</label></div>
       </div>
       <div class="grp">
         <h4>Цель</h4>
@@ -522,7 +522,7 @@ function wCalc(discPct, p){
   var commEff = Math.max(0, v("wComm") + speedAdj);
   var k = (commEff + v("wAcq"))/100;
   var r = v("wAd")/100;
-  var t = F("wTaxon").checked ? (v("wUsn") + v("wVat"))/100 : 0;
+  var t = F("wTaxon").checked ? (v("wUsn") + v("wVat")) / (100 + v("wVat")) : 0;
   var tariff = wTariff(v("wVol"));
   var coefCost = tariff * v("wCoef")/100;
   var fwd = coefCost + v("wPvz");
@@ -570,7 +570,7 @@ function wRecalc(){
   // скидка под целевую маржу
   var m = v("wTarget")/100;
   var k = (r.commEff + v("wAcq"))/100, rr = v("wAd")/100;
-  var t = F("wTaxon").checked ? (v("wUsn") + v("wVat"))/100 : 0;
+  var t = F("wTaxon").checked ? (v("wUsn") + v("wVat")) / (100 + v("wVat")) : 0;
   var fixed = r.logPer + r.S;
   var denom = 1 - k - rr - t - m;
   var warn = F("wWarn");
