@@ -167,6 +167,7 @@ footer{border-top:1px solid var(--border);margin-top:10px;padding-top:18px;font-
           <button class="chip-btn" id="c52" type="button">52% (без оферты)</button>
         </div>
         <div class="frow"><label>Комиссия Ozon, % от цены продавца<small>с 01.12.2026 формула меняется, деньгами — та же ставка</small></label><input class="fin" type="number" id="comm" value="27" min="0" max="100" step="0.1"></div>
+        <div class="frow"><label>Механика вознаграждения<small>с 01.12.2026: max(ставка×1%, ставка − скидка); излишек скидки уменьшает услуги, остаток Ozon доплачивает по акту</small></label><select class="fin" id="mech"><option value="old">до 12.2026 (баллы)</option><option value="new" selected>с 01.12.2026</option></select></div>
         <div class="frow"><label>Эквайринг, % от оплаты покупателя<small>Ozon берёт его с оплаты покупателя; факт Piro: 1,68% ≈ 0,5% от цены продавца</small></label><input class="fin" type="number" id="acq" value="1.7" min="0" step="0.05"></div>
         <div class="frow"><label>Прочие услуги, % от цены продавца<small>упаковка, страхование и т.п.</small></label><input class="fin" type="number" id="other" value="0.5" min="0" max="20" step="0.05"></div>
         <div class="frow"><label>Логистика до ПВЗ, ₽ на отправление<small>тариф: 95 + выдача 25</small></label><input class="fin" type="number" id="logf" value="120" min="0" step="1"></div>
@@ -385,7 +386,7 @@ var PRESETS = {
   "ПолоМуж-009": {price:3000, disc:26.1, buyout:47.1, logf:93, logr:198, ad:5.8, cogs:626},
   "ПолоМуж-010": {price:1900, disc:38.3, buyout:72.5, logf:93, logr:204, ad:4, cogs:626},
   "ПолоМуж-011": {price:2400, disc:39.2, buyout:45, logf:101, logr:192, ad:4.5, cogs:626},
-  "ПолоМуж-1511/3": {price:1800, disc:39, buyout:57.8, logf:93, logr:195, ad:5.3, cogs:667},
+  "ПолоМуж-1511/3": {price:1800, disc:38.9, buyout:57.8, logf:93, logr:195, ad:5.3, cogs:667},
   "ПолоМуж-387/4": {price:4800, disc:0, buyout:46.7, logf:116, logr:230, ad:1.4, cogs:724}
 };
 
@@ -396,14 +397,28 @@ function ozCalc(P, p){
   var t = F("taxon").checked ? (v("usn") + v("vat")) / (100 + v("vat")) : 0;
   var buyer = P * (1 - d);
   var logPer = L + (1 - p)/p * R;
-  var commission = P * comm, others = P * other, adRUB = P * adPct;
+  var others = P * other, adRUB = P * adPct;
+  // Механика с 01.12.2026: вознаграждение = max(ставка×1%, ставка − скидка);
+  // излишек скидки уменьшает услуги, непокрытый остаток Ozon доплачивает по Акту о выплате.
+  var newMech = F("mech").value === "new";
+  var commPct = v("comm"), discPct = v("disc");
+  var commission, credit = 0, payout = 0;
+  if (newMech){
+    var eff = Math.max(commPct * 0.01, commPct - discPct); // % от ПЦТ
+    commission = P * eff / 100;
+    var excess = Math.max(0, discPct - commPct) * P / 100;
+    credit = Math.min(excess, others + logPer);
+    payout = excess - credit;
+  } else {
+    commission = P * comm;
+  }
   var acquiring = buyer * acq;
   var tax = buyer * t;
-  var profit = P - commission - others - adRUB - acquiring - tax - logPer - S;
+  var profit = P - commission - (others + logPer - credit) - adRUB - acquiring - tax - S + payout;
   return {P:P, p:p, buyer:buyer, commission:commission, acquiring:acquiring, others:others,
-          logPer:logPer, adPct:adPct, adRUB:adRUB, tax:tax, S:S, profit:profit,
+          logPer:logPer, adPct:adPct, adRUB:adRUB, tax:tax, S:S, profit:profit, credit:credit, payout:payout,
           margin:P>0 ? profit/P*100 : 0, roi:S>0 ? profit/S*100 : 0,
-          payout:P - commission - acquiring - L};
+          payoutRub:P - commission - acquiring};
 }
 
 function ozRecalc(){
@@ -423,9 +438,11 @@ function ozRecalc(){
     row("· платит покупатель (цена на сайте)", r.buyer, r.P ? r.buyer/r.P*100 : null, "sub") +
     row("· доплачивает Ozon (скидка)", r.P - r.buyer, r.P ? (r.P-r.buyer)/r.P*100 : null, "sub") +
     row("Вознаграждение Ozon", -r.commission, r.P ? -r.commission/r.P*100 : null) +
+    (r.credit > 0.005 ? row("Зачёт излишка скидки в услуги", r.credit, r.P ? r.credit/r.P*100 : null) : "") +
+    (r.payout > 0.005 ? row("Доплата Ozon по акту о выплате", r.payout, r.P ? r.payout/r.P*100 : null) : "") +
     row("Эквайринг (от оплаты покупателя)", -r.acquiring, r.P ? -r.acquiring/r.P*100 : null) +
-    row("Прочие услуги", -r.others, r.P ? -r.others/r.P*100 : null) +
-    row("Логистика до ПВЗ (на 1 выкуп)", -v("logf"), r.P ? -v("logf")/r.P*100 : null) +
+    row("Прочие услуги", -(r.others - Math.min(r.credit, r.others)), r.P ? -(r.others - Math.min(r.credit, r.others))/r.P*100 : null) +
+    row("Логистика до ПВЗ (на 1 выкуп)", -(v("logf") - Math.max(0, r.credit - r.others)), r.P ? -(v("logf") - Math.max(0, r.credit - r.others))/r.P*100 : null) +
     row("Невыкупы: обратка и обработка", -(r.logPer - v("logf")), r.P ? -(r.logPer-v("logf"))/r.P*100 : null) +
     row("Реклама (ДРР)", -r.adRUB, r.P ? -r.adRUB/r.P*100 : null) +
     row("Налоги (УСН + НДС с оплаты покупателя)", -r.tax, r.P ? -r.tax/r.P*100 : null) +
@@ -436,7 +453,12 @@ function ozRecalc(){
   var comm = v("comm")/100, acq = v("acq")/100, other = v("other")/100, adPct = v("ad")/100;
   var t = F("taxon").checked ? (v("usn") + v("vat")) / (100 + v("vat")) : 0;
   var fixed = v("cogs") + r.logPer;
-  var denom = 1 - comm - other - adPct - (1 - v("disc")/100) * (acq + t) - m;
+  var effComm = comm, exc = 0; // механика с 01.12.2026
+  if (F("mech").value === "new"){
+    effComm = Math.max(v("comm") * 0.01, v("comm") - v("disc")) / 100;
+    exc = Math.max(0, v("disc") - v("comm")) / 100; // излишек скидки возвращается (зачёт + акт)
+  }
+  var denom = 1 - effComm + exc - other - adPct - (1 - v("disc")/100) * (acq + t) - m;
   var warn = F("warn");
   var tb2 = document.querySelector("#targetTable tbody");
   if (denom <= 0.001){
@@ -492,16 +514,16 @@ var WPRESETS = {
   "M-001": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3, wgt:0.4, buyout:8.3, cogs:1136},
   "M-002": {base:7000, disc:42, vol:2.4, d:40, s:30, h:2, wgt:0.3, buyout:28.6, cogs:1043},
   "M-003": {base:7000, disc:53, vol:2.4, d:40, s:30, h:2, wgt:0.3, buyout:45, cogs:1043},
-  "M-004": {base:7000, disc:42, vol:2.4, d:40, s:30, h:2, wgt:0.4, buyout:38.1, cogs:1043},
-  "M-005": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3, wgt:0.5, buyout:20.3, cogs:1136},
+  "M-004": {base:7000, disc:42, vol:2.4, d:40, s:30, h:2, wgt:0.4, buyout:41, cogs:1043},
+  "M-005": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3, wgt:0.5, buyout:21.6, cogs:1136},
   "M-006": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3, wgt:0.5, buyout:34, cogs:1062},
-  "M-007": {base:7000, disc:47, vol:2.4, d:40, s:30, h:2, wgt:0.4, buyout:30.3, cogs:1136},
+  "M-007": {base:7000, disc:47, vol:2.4, d:40, s:30, h:2, wgt:0.4, buyout:33.3, cogs:1136},
   "ПолоМуж-001": {base:4856, disc:47, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:42.9, cogs:592},
   "ПолоМуж-002": {base:4856, disc:81, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:52.5, cogs:592},
   "ПолоМуж-006": {base:4856, disc:78, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:62.5, cogs:592},
   "ПолоМуж-009": {base:4956, disc:41, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:41.7, cogs:626},
-  "ПолоМуж-010": {base:4955, disc:45, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:42.9, cogs:626},
-  "ПолоМуж-011": {base:4956, disc:45, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:33.8, cogs:626},
+  "ПолоМуж-010": {base:4955, disc:45, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:44.6, cogs:626},
+  "ПолоМуж-011": {base:4956, disc:45, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:32.4, cogs:626},
   "ПолоМуж-1511/3": {base:4956, disc:53, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:31.6, cogs:667},
   "ПолоМуж-387/4": {base:5956, disc:14, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:46.7, cogs:724}
 };
