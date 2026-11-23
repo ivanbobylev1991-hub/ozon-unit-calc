@@ -373,20 +373,20 @@ function row(label, val, pct, cls){
    скидка Ozon — по оплате покупателя, выкуп — решённые заказы, логистика/невыкуп — по начислениям,
    ДРР — реклама ÷ продажи (7 дн) */
 var PRESETS = {
-  "M-001": {price:4800, disc:49.4, buyout:52.5, logf:102, logr:207, ad:21.3, cogs:1136},
-  "M-002": {price:3300, disc:42.4, buyout:46.5, logf:86, logr:193, ad:9.6, cogs:1043},
-  "M-003": {price:3700, disc:41.6, buyout:18.8, logf:67, logr:204, ad:18.8, cogs:1043},
-  "M-004": {price:4100, disc:42.2, buyout:36.8, logf:94, logr:208, ad:2.6, cogs:1043},
-  "M-005": {price:4800, disc:49.6, buyout:37.7, logf:99, logr:207, ad:20.5, cogs:1136},
-  "M-006": {price:4200, disc:49.6, buyout:51.9, logf:91, logr:211, ad:20.4, cogs:1062},
-  "M-007": {price:4981, disc:45.1, buyout:48.1, logf:87, logr:212, ad:41, cogs:1136},
-  "ПолоМуж-001": {price:1700, disc:39.3, buyout:48.2, logf:94, logr:193, ad:3.6, cogs:592},
-  "ПолоМуж-002": {price:2000, disc:39.7, buyout:92.9, logf:84, logr:177, ad:8.5, cogs:592},
-  "ПолоМуж-006": {price:1500, disc:26.1, buyout:62.5, logf:120, logr:205, ad:5.1, cogs:592},
-  "ПолоМуж-009": {price:3000, disc:25.3, buyout:47.1, logf:93, logr:198, ad:5.8, cogs:626},
-  "ПолоМуж-010": {price:1900, disc:38.9, buyout:72.3, logf:93, logr:202, ad:3.7, cogs:626},
-  "ПолоМуж-011": {price:2400, disc:39.6, buyout:45, logf:101, logr:192, ad:4.5, cogs:626},
-  "ПолоМуж-1511/3": {price:1800, disc:39.1, buyout:59.1, logf:94, logr:196, ad:4.8, cogs:667},
+  "M-001": {price:4800, disc:50.3, buyout:52.3, logf:103, logr:195, ad:19, cogs:1136},
+  "M-002": {price:3300, disc:44.2, buyout:47.6, logf:86, logr:192, ad:9.6, cogs:1043},
+  "M-003": {price:3700, disc:43.1, buyout:20, logf:67, logr:205, ad:18.8, cogs:1043},
+  "M-004": {price:4100, disc:44.5, buyout:40, logf:94, logr:207, ad:2.6, cogs:1043},
+  "M-005": {price:4800, disc:50.4, buyout:37.1, logf:99, logr:200, ad:21.5, cogs:1136},
+  "M-006": {price:4200, disc:50.4, buyout:51.9, logf:94, logr:216, ad:22.1, cogs:1062},
+  "M-007": {price:4981, disc:46.5, buyout:46.3, logf:86, logr:211, ad:37.9, cogs:1136},
+  "ПолоМуж-001": {price:1700, disc:39.8, buyout:50.9, logf:94, logr:194, ad:4, cogs:592},
+  "ПолоМуж-002": {price:2000, disc:40, buyout:92.9, logf:80, logr:177, ad:8.5, cogs:592},
+  "ПолоМуж-006": {price:1500, disc:27.7, buyout:62.5, logf:120, logr:205, ad:5.1, cogs:592},
+  "ПолоМуж-009": {price:3000, disc:24.4, buyout:52.9, logf:96, logr:188, ad:5.8, cogs:626},
+  "ПолоМуж-010": {price:1900, disc:39.3, buyout:73.9, logf:93, logr:198, ad:4.5, cogs:626},
+  "ПолоМуж-011": {price:2400, disc:40.1, buyout:47.6, logf:100, logr:196, ad:4.5, cogs:626},
+  "ПолоМуж-1511/3": {price:1800, disc:39.6, buyout:60.4, logf:96, logr:184, ad:4.8, cogs:667},
   "ПолоМуж-387/4": {price:4800, disc:0, buyout:46.7, logf:116, logr:230, ad:1.4, cogs:724}
 };
 
@@ -512,19 +512,19 @@ var wScheme = "fbs";
    пересчёт ежедневно (update_presets.py), себестоимость — финальная партия 10.10.2026 */
 var WPRESETS = {
   "M-001": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3, wgt:0.4, buyout:8.3, cogs:1136},
-  "M-002": {base:7000, disc:42, vol:2.4, d:40, s:30, h:2, wgt:0.3, buyout:26.3, cogs:1043},
+  "M-002": {base:7000, disc:42, vol:2.4, d:40, s:30, h:2, wgt:0.3, buyout:26.4, cogs:1043},
   "M-003": {base:7000, disc:53, vol:2.4, d:40, s:30, h:2, wgt:0.3, buyout:42.9, cogs:1043},
-  "M-004": {base:7000, disc:42, vol:2.4, d:40, s:30, h:2, wgt:0.4, buyout:41.7, cogs:1043},
-  "M-005": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3, wgt:0.5, buyout:21.9, cogs:1136},
-  "M-006": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3, wgt:0.5, buyout:32, cogs:1062},
-  "M-007": {base:7000, disc:47, vol:2.4, d:40, s:30, h:2, wgt:0.4, buyout:29.5, cogs:1136},
-  "ПолоМуж-001": {base:4856, disc:47, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:41.7, cogs:592},
+  "M-004": {base:7000, disc:42, vol:2.4, d:40, s:30, h:2, wgt:0.4, buyout:41, cogs:1043},
+  "M-005": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3, wgt:0.5, buyout:21.1, cogs:1136},
+  "M-006": {base:8000, disc:51, vol:3.6, d:40, s:30, h:3, wgt:0.5, buyout:33.3, cogs:1062},
+  "M-007": {base:7000, disc:47, vol:2.4, d:40, s:30, h:2, wgt:0.4, buyout:28.7, cogs:1136},
+  "ПолоМуж-001": {base:4856, disc:47, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:50, cogs:592},
   "ПолоМуж-002": {base:4856, disc:81, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:52.5, cogs:592},
   "ПолоМуж-006": {base:4856, disc:78, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:62.5, cogs:592},
   "ПолоМуж-009": {base:4956, disc:41, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:45.5, cogs:626},
-  "ПолоМуж-010": {base:4955, disc:45, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:42.9, cogs:626},
-  "ПолоМуж-011": {base:4956, disc:45, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:31.9, cogs:626},
-  "ПолоМуж-1511/3": {base:4956, disc:53, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:30, cogs:667},
+  "ПолоМуж-010": {base:4955, disc:45, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:40, cogs:626},
+  "ПолоМуж-011": {base:4956, disc:45, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:34.2, cogs:626},
+  "ПолоМуж-1511/3": {base:4956, disc:53, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:40, cogs:667},
   "ПолоМуж-387/4": {base:5956, disc:14, vol:2.4, d:30, s:40, h:2, wgt:0.215, buyout:46.7, cogs:724}
 };
 
